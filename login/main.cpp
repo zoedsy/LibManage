@@ -1,4 +1,5 @@
-#include"log.h"
+#include"..\include\log.h"
+#include"..\include\person.h"
 #include<iostream>
 #include<string>
 using namespace std;
@@ -12,36 +13,25 @@ int main()
 	}
 	return 0;
 };
-void apply1()   //管理员功能
-{
-	system("pause");
-	exit(0);
-}
-void apply2()   //读者功能
-{
-	system("pause");
-	exit(0);
-}
-void apply3()    //游客功能
-{
-	system("pause");
-	exit(0);
-}
+
+
 void logins()
 {
 L0:
-	logs l;
+	// logs l;
 	cout << " ------小川图书管理系统登录------" << endl;
 	cout << "       1.管理员                  " << endl;
 	cout << "       2.读者                    " << endl;
 	cout << "       3.游客                    " << endl;
 	cout << "       4.退出                    " << endl;
 	cout << " --------------------------------" << endl;
+	cout << "请输入选项（1-4）:";
 	int i;  cin >> i;
 	switch (i)
 	{
 	case 1:
 	{
+		Admin adm;
 	L1:
 		system("cls");
 		cout << "--------管理员--------" << endl;
@@ -49,30 +39,31 @@ L0:
 		cout << "       1.登录          " << endl;
 		cout << "       2.注册          " << endl;
 		cout << "       3.修改密码      " << endl;
-		cout << "       4.退出程序      " << endl;
+		cout << "       4.返回上一页      " << endl;
 		cout << "***********************" << endl;
-		int m; cin >> m;
+		int m; cin >> m;  
 		switch (m)
 		{
 		case 1:
 		{
-			if (l.goin1() == 1)
-				apply1();
+			if (adm.ls->goin1() == 1)
+				adm.apply1();
 			break;
 		}
 		case 2:
 		{
-			l.registers1();
+			adm.ls->registers1();
 			goto L1;
 		}
 		case 3:
 		{
-			l.change1();
+			adm.ls->change1();
 			goto L1;
 		}
 		case 4:
 		{
-			cout << "退出登陆界面" << endl;
+			cout << "返回上一页" << endl;
+			goto L0;
 			break;
 		}
 		default:
@@ -83,8 +74,10 @@ L0:
 		}
 		break;
 	}
+
 	case 2:
 	{
+		Reader rea;
 	L2:
 		system("cls");
 		cout << "---------读者---------" << endl;
@@ -92,30 +85,31 @@ L0:
 		cout << "       1.登录          " << endl;
 		cout << "       2.注册          " << endl;
 		cout << "       3.修改密码      " << endl;
-		cout << "       4.退出程序      " << endl;
+		cout << "       4.返回上一页      " << endl;
 		cout << "***********************" << endl;
 		int m; cin >> m;
 		switch (m)
 		{
 		case 1:
 		{
-			if (l.goin2() == 1)
-				apply2();
+			if (rea.ls->goin2() == 1)
+				rea.apply2();
 			break;
 		}
 		case 2:
 		{
-			l.registers2();
+			rea.ls->registers2();
 			goto L2;
 		}
 		case 3:
 		{
-			l.change2();
+			rea.ls->change2();
 			goto L2;
 		}
 		case 4:
 		{
-			cout << "退出登陆界面" << endl;
+			cout << "返回上一页" << endl;
+			goto L0;
 			break;
 		}
 		default:
@@ -128,8 +122,10 @@ L0:
 	}
 	case 3:
 	{
+		Visitor vis;
+
 		cout << "---------游客---------" << endl;
-		apply3();
+		vis.apply3();
 	}
 	break;
 	case 4:
