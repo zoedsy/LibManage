@@ -9,6 +9,7 @@ namespace LibSys{
         std::string isbn;
         bool operator==(ISBN const&i)const noexcept{return isbn==i.isbn;}
     };
+    class library;
     /**
      * @brief the book class which contains the all info of book itself
     */
@@ -18,6 +19,7 @@ namespace LibSys{
             int*count;
             const Category cate;
         public:
+            friend class library;
             const ISBN isbn;
             Book()=delete;
             Book(std::string n,std::string isbn,std::string pr,int const&c,Category cg);
