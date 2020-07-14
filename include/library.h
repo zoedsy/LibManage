@@ -5,10 +5,7 @@
 #include<unordered_map>
 namespace LibSys{
     enum Category{MAGAZINE,TEXTBOOK,PRIMER,AUTOBIOGRAPHY,FAIRY,NOVEL,ADVENTURE,FICTION,SUNDRIES};
-    struct ISBN{
-        std::string isbn;
-        bool operator==(ISBN const&i)const noexcept{return isbn==i.isbn;}
-    };
+
     class library;
     /**
      * @brief the book class which contains the all info of book itself
@@ -16,11 +13,11 @@ namespace LibSys{
     class Book{
         private:
             std::string name,author,press;
-            int*count;
+            int count;
             const Category cate;
         public:
             friend class library;
-            const ISBN isbn;
+            const std::string isbn;
             Book()=delete;
             Book(std::string n,std::string isbn,std::string pr,int const&c,Category cg);
             Book(Book const&)noexcept;
@@ -28,46 +25,28 @@ namespace LibSys{
              * @brief remember to delete the pointer [count]
             */
             ~Book()noexcept;
-            Book& operator=(Book const&)noexcept;
-            bool operator==(Book const&b){return isbn==b.isbn;}
+            Book& operator=(Book const&)noexcept=delete;
+            bool operator==(Book const&b)const noexcept{return isbn==b.isbn;}
             inline const std::string GetName()const noexcept{return name;}
             inline const std::string GetPress()const noexcept{return press;}
             inline const std::string GetAuthor()const noexcept{return author;}
-            inline const std::string GetIsbn()const noexcept{return isbn.isbn;}
-            inline bool borrow()noexcept{return --*count==0;}
-            inline void ret()noexcept{++*count;}
+            inline const std::string GetIsbn()const noexcept{return isbn;}
+            inline void ChangeName(std::string const&n)noexcept{name=n;}
+            inline bool borrow()noexcept{return --count==0;}
+            inline void ret()noexcept{++count;}
     };
-    struct visitor_tag{};
-    struct member_tag:visitor_tag{};
-    struct admin_tag:member_tag{};
-    class visitor{
-        protected:
-            std::string name;
-            /*
-            data
-            */
-        
-        public:
-            typedef visitor_tag tag;
-
-    };
-    class member:public visitor{
-        private:
-        //data
-        public:
-            typedef member_tag tag;
-    };
-    class admin:public member{
-        private:
-        public:
-            typedef admin_tag tag;
-    };
+    std::string ActionCreator(const char*__act,const char*__bn,const char*__isbn){
+        return std::string(__act)+" "+__bn+"(ISBN:"+__isbn+")";
+    }
+    class visitor;
+    class member;
+    class admin;
     class Message final{
         std::string time,person,action;
         public:
         Message(std::string const&t,std::string const&p,std::string const&a)noexcept
             :time(t),person(p),action(a){}
-        std::string operator()()noexcept{return time+" : "+person+" "+action;}
+        std::string operator()()const noexcept;
     };
     /**
      * @brief remember to log every action
@@ -75,7 +54,7 @@ namespace LibSys{
     class library{
         private:
             std::unordered_map<std::string,Book>                BooksMap;
-            std::unordered_map<visitor*,Book>                   borrow_trace;
+            std::unordered_map<member,Book>                   borrow_trace;
             std::unordered_multimap<std::string,std::string>    NameToISBN;
             std::string DestFile;
             /**
@@ -110,14 +89,11 @@ namespace LibSys{
              * @brief save data to specific file
             */
             void save(std::string const&file="");
+            enum field{ISBN,NAME,AUTHOR,PRESS,BLUR};
             /**
              * @brief search book by bookname or else
             */
-            bool borrow(member const&,std::string const&)noexcept;
-            /**
-             * @brief search book by ISBN
-            */
-            bool borrow(member const&,ISBN const&)noexcept;
+            bool borrow(member const&,std::string const&,field)noexcept;
             /**
              * @brief search book with complete info
             */
@@ -126,8 +102,7 @@ namespace LibSys{
              * @brief return book
             */
             bool ret(member const&,Book const&)noexcept;
-            bool changeBookName(admin const&,Book const&,std::string const&);
-            bool changeBookName(admin const&,ISBN const&,std::string const&);
+            bool changeBookName(admin const&,std::string const&,field,std::string const&);
             /**
              * @brief purchase a bunch of books
             */
@@ -136,16 +111,11 @@ namespace LibSys{
              * @brief discard a bunch of books
             */
             void discard(admin const&,Book const&)noexcept;
-            void sell(visitor const&,Book const&)noexcept;
-            enum field{NAME,AUTHOR,PRESS,BLUR};
+            [[deprecated]]void sell(visitor const&,Book const&)noexcept;
             /**
              * @brief search book by field
             */
             bool search(std::string const&seg,field f=field::NAME)noexcept;
-            /**
-             * @brief search book exactly by ISBN
-            */
-            bool search(ISBN const&isbn)noexcept;
             /**
              * @brief list all books
              * @param Details list all info about this book if Details is true
