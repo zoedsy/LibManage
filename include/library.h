@@ -15,6 +15,7 @@ namespace LibSys{
             std::string name,author,press;
             int count;
             const Category cate;
+            Book& operator=(Book const&)noexcept;
         public:
             friend class library;
             const std::string isbn;
@@ -25,7 +26,6 @@ namespace LibSys{
              * @brief remember to delete the pointer [count]
             */
             ~Book()noexcept;
-            Book& operator=(Book const&)noexcept=delete;
             bool operator==(Book const&b)const noexcept{return isbn==b.isbn;}
             inline const std::string GetName()const noexcept{return name;}
             inline const std::string GetPress()const noexcept{return press;}
