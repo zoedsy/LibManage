@@ -2,14 +2,14 @@
 #define _LIBRARY_H_ 1
 #include<iosfwd>
 #include<string>
-#include<map>
-
+#include<unordered_map>
 namespace LibSys{
     enum Category{MAGAZINE,TEXTBOOK,PRIMER,AUTOBIOGRAPHY,FAIRY,NOVEL,ADVENTURE,FICTION,SUNDRIES};
     struct ISBN{
         std::string isbn;
         bool operator==(ISBN const&i)const noexcept{return isbn==i.isbn;}
     };
+    class library;
     /**
      * @brief the book class which contains the all info of book itself
     */
@@ -19,6 +19,7 @@ namespace LibSys{
             int*count;
             const Category cate;
         public:
+            friend class library;
             const ISBN isbn;
             Book()=delete;
             Book(std::string n,std::string isbn,std::string pr,int const&c,Category cg);
@@ -73,8 +74,9 @@ namespace LibSys{
     */
     class library{
         private:
-            std::map<std::string,Book> BooksMap;
-            std::map<visitor*,Book>borrow_trace;
+            std::unordered_map<std::string,Book>                BooksMap;
+            std::unordered_map<visitor*,Book>                   borrow_trace;
+            std::unordered_multimap<std::string,std::string>    NameToISBN;
             std::string DestFile;
             /**
              * @brief fetch the data from file
@@ -126,7 +128,29 @@ namespace LibSys{
             bool ret(member const&,Book const&)noexcept;
             bool changeBookName(admin const&,Book const&,std::string const&);
             bool changeBookName(admin const&,ISBN const&,std::string const&);
+            /**
+             * @brief purchase a bunch of books
+            */
             void buy(admin const&,Book const&)noexcept;
+            /**
+             * @brief discard a bunch of books
+            */
+            void discard(admin const&,Book const&)noexcept;
+            void sell(visitor const&,Book const&)noexcept;
+            enum field{NAME,AUTHOR,PRESS,BLUR};
+            /**
+             * @brief search book by field
+            */
+            bool search(std::string const&seg,field f=field::NAME)noexcept;
+            /**
+             * @brief search book exactly by ISBN
+            */
+            bool search(ISBN const&isbn)noexcept;
+            /**
+             * @brief list all books
+             * @param Details list all info about this book if Details is true
+            */
+            void list(bool Details=0)const noexcept;
     };
 }
 #endif//_LIBRARY_H_
