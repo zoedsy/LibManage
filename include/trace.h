@@ -6,21 +6,15 @@
 class trace
 {
 private:
-    typedef struct
-    {
+    struct tip{
         std::string name;
         std::string isbn;
         std::string lend_time;
         bool operator==(const tip &object)
         {
-            if (name == object.name && isbn == object.isbn)
-                return 1;
-            else
-            {
-                return 0;
-            }
+            return name == object.name && isbn == object.isbn;
         }
-    } tip;
+    };
     std::list<tip> book_trace;
     std::list<trace::tip>::iterator it = book_trace.begin();
 
@@ -28,49 +22,37 @@ public:
     trace() = default;
     void append(std::string NAME, std::string ISBN, std::string LEND_TIME)
     {
-        tip temp;
-        temp.name = NAME;
-        temp.isbn = ISBN;
-        temp.lend_time = lend;
-        book_trace.push_back(temp);
+        book_trace.push_back({NAME,ISBN,LEND_TIME});
     }
-    //Í¨¹ýÐÕÃû²éÕÒÐÅÏ¢²¢Êä³ö
+    //Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½
     void search_people(std::string);
-    //Õ¹Ê¾È«²¿ÐÅÏ¢
+    //Õ¹Ê¾È«ï¿½ï¿½ï¿½ï¿½Ï¢
     void show_all();
-    //Í¨¹ýÐÕÃûÉ¾³ý£¨´ú±í»¹Êé£©   ÌØ±ðµÄ£¬·µ»ØÖµÎª½èÊéÊ±¼äµÄ×Ö·û´®
+    //Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£©   ï¿½Ø±ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÎªï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
     std::string remove_people(std::string);
-    //Í¨¹ýshow_allµÄÐòºÅÉ¾³ý£¨´ú±í»¹Êé£©
+    //Í¨ï¿½ï¿½show_allï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£©
     std::string remove_ID(int n);
-    std::string erase(tip object);
+    std::string erase(tip const&object)noexcept;
 
     ~trace() = default;
 };
-std::string trace::erase(tip object)
+std::string trace::erase(tip const&object)noexcept
 {
-    int size = book_trace.size();
-    if (size == 0)
+    std::string time;
+    for (auto it = book_trace.begin(); it != book_trace.end(); it++)
     {
-        for (auto it = book_trace.begin(); it != book_trace.end(); it++)
+        if (*it==object)
         {
-            if (*it == object)
-            {
-                std::string temp = it->lend_time;
-                book_trace.erase(it);
-                return temp;
-            }
+            time = it->lend_time;
+            book_trace.erase(it);
         }
-        return "";
     }
-    else
-    {
-        return "";
-    }
+    return time;
 }
 
 void trace::show_all()
 {
-    std::cout << "ÐòºÅ\tISBN\t½èÊéÈË\t½èÊéÊ±¼ä\n";
+    std::cout << "ï¿½ï¿½ï¿½\tISBN\tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\tï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½\n";
     int size = book_trace.size();
     if (size != 0)
     {
@@ -84,12 +66,12 @@ void trace::show_all()
     }
     else
     {
-        std::cout << "Ã»ÓÐ½èÔÄ¼ÇÂ¼";
+        std::cout << "Ã»ï¿½Ð½ï¿½ï¿½Ä¼ï¿½Â¼";
     }
 }
 void trace::search_people(std::string name)
 {
-    std::cout << "ÕýÔÚ°´ÈË²éÕÒÐÅÏ¢" << std::endl;
+    std::cout << "ï¿½ï¿½ï¿½Ú°ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢" << std::endl;
     int size = book_trace.size();
     if (size != 0)
     {
@@ -104,16 +86,16 @@ void trace::search_people(std::string name)
     }
     else
     {
-        std::cout << "Ã»ÓÐ½èÔÄ¼ÇÂ¼";
+        std::cout << "Ã»ï¿½Ð½ï¿½ï¿½Ä¼ï¿½Â¼";
     }
 }
 std::string trace::remove_people(std::string name)
 {
-    std::cout << "ÕýÔÚ°´ÈËÉ¾³ýÐÅÏ¢" << std::endl;
+    std::cout << "ï¿½ï¿½ï¿½Ú°ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½Ï¢" << std::endl;
     int size = book_trace.size();
     if (size == 0)
     {
-        std::cout << "Ã»ÓÐ½èÔÄ¼ÇÂ¼!ÎÞ·¨É¾³ý£¡";
+        std::cout << "Ã»ï¿½Ð½ï¿½ï¿½Ä¼ï¿½Â¼!ï¿½Þ·ï¿½É¾ï¿½ï¿½ï¿½ï¿½";
         return "";
     }
     else
@@ -124,7 +106,7 @@ std::string trace::remove_people(std::string name)
             if (it->name == name)
             {
                 size--;
-                std::cout << "ÕýÔÚÒÆ³ý½èÔÄ¼ÇÂ¼" << std::endl;
+                std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Â¼" << std::endl;
                 std::cout << i << "\t" << it->isbn << it->name << it->lend_time << std::endl;
                 std::string temp = it->lend_time;
                 book_trace.erase(it);
@@ -134,26 +116,26 @@ std::string trace::remove_people(std::string name)
             it++;
         }
         if (flag)
-            std::cout << "Ã»ÓÐÕÒµ½¸ÃÐÕÃû£¡";
+            std::cout << "Ã»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
         it = book_trace.begin();
         return "";
     }
 }
 std::string trace::remove_ID(int n)
 {
-    std::cout << "ÕýÔÚ°´ÐòºÅÉ¾³ýÐÅÏ¢" << std::endl;
+    std::cout << "ï¿½ï¿½ï¿½Ú°ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½Ï¢" << std::endl;
     int size = book_trace.size();
     if (size == 0)
     {
-        std::cout << "Ã»ÓÐ½èÔÄ¼ÇÂ¼£¡ÎÞ·¨É¾³ý";
+        std::cout << "Ã»ï¿½Ð½ï¿½ï¿½Ä¼ï¿½Â¼ï¿½ï¿½ï¿½Þ·ï¿½É¾ï¿½ï¿½";
         return "";
     }
     else if (n > size || n < 0)
     {
-        std::cout << "ÇëÊäÈëÕýÈ·µÄÐòºÅ£¡";
+        std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½Å£ï¿½";
         return "";
     }
-    else if
+    else 
     {
         for (int i = 1; i <= size; i++)
         {
@@ -161,7 +143,7 @@ std::string trace::remove_ID(int n)
             if (i == n)
             {
                 size--;
-                std::cout << "ÕýÔÚÒÆ³ý½èÔÄ¼ÇÂ¼" << std::endl;
+                std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Â¼" << std::endl;
                 std::cout << i << "\t" << it->isbn << it->name << it->lend_time << std::endl;
                 std::string temp = it->lend_time;
                 book_trace.erase(it);
@@ -172,5 +154,4 @@ std::string trace::remove_ID(int n)
         it = book_trace.begin();
         return "";
     }
-}
 }
