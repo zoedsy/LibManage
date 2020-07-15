@@ -33,34 +33,17 @@ namespace LibSys{
         return old_file;
         }
 
-    bool library::borrow(Reader const&m,std::string const&seg,field f)noexcept{
-            switch(f)
-            {
-            case ISBN:
-                try{
-                    BooksMap.at(seg);
-                    Book book=BooksMap[seg];
-                    if(--BooksMap[seg].count==0)
-                        BooksMap.erase(seg);
-                    borrow_trace.append(m.GetAccount(),seg,getTime());
-                    log(Message(getTime(),m.GetAccount(),ActionCreator("borrow",book.GetName().c_str(),book.isbn.c_str())));
-                    return true;
-                }catch(std::out_of_range&){
-                    return false;
-                }
-                break;
-            case NAME:
-                for(auto&&it:NameToISBN){
-
-                }
-                break;
-            case AUTHOR:
-                break;
-            case PRESS:
-                break;
-            default:
-            //use regex to search
-                break;
+    bool library::borrow(Reader const&m,std::string const&seg)noexcept{
+            try{
+                BooksMap.at(seg);
+                Book book=BooksMap[seg];
+                if(--BooksMap[seg].count==0)
+                    BooksMap.erase(seg);
+                borrow_trace.append(m.GetAccount(),seg,getTime());
+                log(Message(getTime(),m.GetAccount(),ActionCreator("borrow",book.GetName().c_str(),book.isbn.c_str())));
+                return true;
+            }catch(std::out_of_range&){
+                return false;
             }
         }
     bool library::borrow(Reader const&m,Book const&book)noexcept{
@@ -76,8 +59,12 @@ namespace LibSys{
         }return false;
     }
     bool library::ret(Reader const&m,Book const&book)noexcept{
-        borrow_trace.erase({book.name,book.isbn,""});
+        std::string BorrowTime=borrow_trace.erase({book.name,book.isbn,""});
         log(Message(getTime(),m.GetAccount(),ActionCreator("return",book.GetName().c_str(),book.isbn.c_str())));
+        return BorrowTime!="";
+    }
+    bool library::ret(Reader const&m,std::string const&_isbn)noexcept{
+        return ret(m,BooksMap[_isbn]);
     }
     void library::list(bool Det)const noexcept{
         if(Det){
@@ -99,28 +86,36 @@ namespace LibSys{
                 }catch(std::out_of_range&){
                     return false;
                 }
-                break;
             case NAME:
-                for(auto&&it:NameToISBN){
-                    if(it.first==seg)
-                        return true;
-                }
-                return false;
-                break;
+                bool found=false;
+                std::cout<<"Book: "<<seg<<std::ends;
+                    for(auto&&it:NameToISBN){
+                        if(it.first==seg){
+                            found=true;
+                            std::cout<<"\tISBN: "<<it.second<<std::endl;
+                        }
+                    }
+                return found;
             case AUTHOR:
+                bool found=false;
+                std::cout<<"Author: "<<seg<<std::ends;
                 for(auto&&it:BooksMap){
                     if(it.second.author==seg)
-                        return true;
+                        std::cout<<"\tBook: "<<it.second.name
+                            <<"\tISBN: "<<it.second.isbn<<std::endl;
+                        found=true;
                 }
-                return false;
-                break;
+                return found;
             case PRESS:
-            for(auto&&it:BooksMap){
+                bool found=false;
+                std::cout<<"Press: "<<seg<<std::ends;
+                for(auto&&it:BooksMap){
                     if(it.second.press==seg)
-                        return true;
+                        std::cout<<"\tBook: "<<it.second.name
+                            <<"\tISBN: "<<it.second.isbn<<std::endl;
+                        found=true;
                 }
-                return false;
-                break;
+                return found;
             default:
             //use regex to search
                 break;
@@ -162,5 +157,26 @@ namespace LibSys{
         }catch(std::out_of_range&){
             std::cerr<<"Book No Found!"<<std::endl;
         }
+    }
+    void library::listBorrowTrace()const noexcept{
+        borrow_trace.show_all();
+    }
+    void library::retAllBook(Reader const&m)noexcept{
+        auto&& traces=borrow_trace.search_people(m.GetAccount());
+        for(auto&&tr:traces){
+            ret(m,tr);
+        }
+        borrow_trace.remove_people(m.GetAccount());
+    }
+    void library::retListIndex(unsigned Ind)noexcept{
+        auto ISBNToName=[&](std::string const&isbn)->std::string{
+            for(auto&&it:NameToISBN){
+                if(it.second==isbn)
+                    return it.first;
+            }return "";
+        };
+        auto&&temp=borrow_trace.remove_ID(Ind);
+        log(Message(getTime(),temp.name,
+            ActionCreator("return",ISBNToName(temp.isbn).c_str(),temp.isbn.c_str())));
     }
 }

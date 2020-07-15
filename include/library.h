@@ -101,7 +101,7 @@ namespace LibSys{
             /**
              * @brief search book by bookname or else
             */
-            bool borrow(Reader const&,std::string const&,field)noexcept;
+            bool borrow(Reader const&,std::string const&_isbn)noexcept;
             /**
              * @brief search book with complete info
             */
@@ -110,6 +110,7 @@ namespace LibSys{
              * @brief return book
             */
             bool ret(Reader const&,Book const&)noexcept;
+            bool ret(Reader const&,std::string const&_isbn)noexcept;
             bool changeBookName(Admin const&,std::string const&_isbn,field,std::string const&_newName);
             /**
              * @brief purchase a bunch of books
