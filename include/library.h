@@ -1,5 +1,6 @@
 #ifndef _LIBRARY_H_
 #define _LIBRARY_H_ 1
+#include"trace.h"
 #include<iosfwd>
 #include<string>
 #include<unordered_map>
@@ -45,9 +46,6 @@ namespace LibSys{
     };
     Category StringToCategory(std::string const&str);
     std::string CategoryToString(Category cate);
-    class visitor;
-    class member;
-    class admin;
     std::string ActionCreator(const char*__act,const char*__bn,const char*__isbn);
     class Message final{
         std::string time,person,action;
@@ -56,17 +54,19 @@ namespace LibSys{
             :time(t),person(p),action(a){}
         std::string operator()()const noexcept;
     };
+    class Person;
+    class Visitor;
+    class Reader;
+    class Admin;
     /**
      * @brief remember to log every action
     */
     class library{
         private:
             std::unordered_map<std::string,Book>                BooksMap;
-            // std::unordered_map<member,Book>                   borrow_trace;
-            
-            std::unordered_map<std::string,std::string>         borrow_trace;
+            trace                                               borrow_trace;
             std::unordered_multimap<std::string,std::string>    NameToISBN;
-            std::string DestFile;
+            std::string                                         DestFile;
             /**
              * @brief fetch the data from file
             */
@@ -74,10 +74,10 @@ namespace LibSys{
             /**
              * @brief set log file which can't be changed by anyone
             */
-            static constexpr char*LOGFILE="";
+            static const std::string LOGFILE;
             void log(Message const&m)noexcept;
         public:
-            constexpr static char*DefaultFile="";//default file set
+            const static std::string DefaultFile;//default file set
             /**
              * @brief default constructor 
              * using the default file to fetch data
@@ -103,25 +103,25 @@ namespace LibSys{
             /**
              * @brief search book by bookname or else
             */
-            bool borrow(member const&,std::string const&,field)noexcept;
+            bool borrow(Reader const&,std::string const&,field)noexcept;
             /**
              * @brief search book with complete info
             */
-            bool borrow(member const&,Book const&)noexcept;
+            bool borrow(Reader const&,Book const&)noexcept;
             /**
              * @brief return book
             */
-            bool ret(member const&,Book const&)noexcept;
-            bool changeBookName(admin const&,std::string const&,field,std::string const&);
+            bool ret(Reader const&,Book const&)noexcept;
+            bool changeBookName(Admin const&,std::string const&,field,std::string const&);
             /**
              * @brief purchase a bunch of books
             */
-            void buy(admin const&,Book const&)noexcept;
+            void buy(Admin const&,Book const&)noexcept;
             /**
              * @brief discard a bunch of books
             */
-            void discard(admin const&,Book const&)noexcept;
-            [[deprecated]]void sell(visitor const&,Book const&)noexcept;
+            void discard(Admin const&,Book const&)noexcept;
+            [[deprecated]]void sell(Person const&,Book const&)noexcept{}
             /**
              * @brief search book by field
             */
