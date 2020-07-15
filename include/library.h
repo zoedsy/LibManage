@@ -130,9 +130,24 @@ namespace LibSys{
              * @param Details list all info about this book if Details is true
             */
             void list(bool Details=0)const noexcept;
+            /**
+             * @brief list all infomation of borrow_trace though lots of lines
+             * for admin
+            */
             void listBorrowTrace()const noexcept;
-            void retAllBook(Reader const&)noexcept;
+            /**
+             * @brief return the book by pointing the specific line of the showed info via listBorrowTrace
+            */
             void retListIndex(unsigned)noexcept;
+            /**
+             * @brief return all books of the Reader
+            */
+            void retAllBook(Reader const&)noexcept;
+            /**
+             * @brief output the personal borrow trace
+             * output null if none
+            */
+           void personalBorrowTrace(Reader const&reader)noexcept;
     };
 }
 #endif//_LIBRARY_H_
