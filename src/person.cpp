@@ -82,7 +82,7 @@ void Admin::apply13(){
     cout<<"please input the information of book:(no.,isbn,author,press,count,category):"<<endl;
     cin>>n;cin>>isbn;cin>>author;cin>>press;cin>>count;cin>>cg;
     LibSys::Book b(n,isbn,author,press,count,LibSys::StringToCategory(cg));
-    lib->buy(*this,b);
+    Person::lib->buy(*this,b);
     cout<<"successfully insert book"<<endl;
     system("pause");
     apply1();
@@ -94,7 +94,7 @@ void Admin::apply14(){
     cout<<"please input the information of book to delete:(no.,isbn,author,press,count,category):"<<endl;
     cin>>n;cin>>isbn;cin>>author;cin>>press;cin>>count;cin>>cg;
     LibSys::Book b(n,isbn,author,press,count,LibSys::StringToCategory(cg));
-    lib->discard(*this,b);
+    Person::lib->discard(*this,b);
     cout<<"successfully delete book"<<endl;
     system("pause");
     apply1();
@@ -103,7 +103,7 @@ void Admin::apply14(){
 }
 void Admin::apply15(){
     //look up borrowlog
-    lib->listBorrowTrace();
+    Person::lib->listBorrowTrace();
     system("pause");
     apply1();
 }
@@ -122,7 +122,7 @@ void Reader::apply21(){
     switch(c){
         case 'N':
 
-            if(lib->search(s1,LibSys::library::field::NAME)){
+            if(Person::lib->search(s1,LibSys::library::field::NAME)){
               
 
             }else{
@@ -130,21 +130,21 @@ void Reader::apply21(){
             }
             break;
         case 'I':
-            if(lib->search(s1,LibSys::library::field::ISBN)){
+            if(Person::lib->search(s1,LibSys::library::field::ISBN)){
             
             }else{
                 cout<<"can not find the book"<<endl;
             }
             break;
         case 'A':
-             if(lib->search(s1,LibSys::library::field::AUTHOR)){
+             if(Person::lib->search(s1,LibSys::library::field::AUTHOR)){
                 
             }else{
                 cout<<"can not find the book"<<endl;
             }
             break;
         case 'P':
-            if(lib->search(s1,LibSys::library::field::PRESS)){
+            if(Person::lib->search(s1,LibSys::library::field::PRESS)){
                
             }else{
                 cout<<"can not find the book"<<endl;
@@ -158,6 +158,9 @@ void Reader::apply21(){
 }
 void Reader::apply22(){
     //borrow
+    string isbn;
+    cout<<"please input the isbn of the book:"<<endl;
+    Person::lib->borrow(*this,isbn);
 }
 void Reader::apply23(){
     //return
@@ -166,12 +169,12 @@ void Reader::apply23(){
     cout<<"Do you wannna return all the books?(Y/N):";
     cin>>a;
     if(a=='Y'){
-        lib->retAllBook(*this);
+        Person::lib->retAllBook(*this);
         cout<<"successfully return all the books!"<<endl;
     }else if(a=='N'){
         cout<<"input isbn of the book you wanna return:";
         cin>>isbn;
-        lib->ret(*this,isbn);
+        Person::lib->ret(*this,isbn);
         cout<<"successfully return  the book!"<<endl;
     }else{
         cout<<"input error!"<<endl;
@@ -181,15 +184,17 @@ void Reader::apply23(){
 }
 void Reader::apply24(){
     //modify personal 
+    //nothing
 }
 void Reader::apply25(){
     //look up borrowlog
-
+    Person::lib->personalBorrowTrace(*this);
+    system("pause");
 }
 
 void Visitor::apply31(){
     //look up all the information
-    lib->list(true);
+    Person::lib->list(true);
     system("pause");
     apply3();
 
@@ -208,7 +213,7 @@ void Visitor::apply32(){
     switch(c){
         case 'N':
 
-            if(lib->search(s1,LibSys::library::field::NAME)){
+            if(Person::lib->search(s1,LibSys::library::field::NAME)){
               
 
             }else{
@@ -216,21 +221,21 @@ void Visitor::apply32(){
             }
             break;
         case 'I':
-            if(lib->search(s1,LibSys::library::field::ISBN)){
+            if(Person::lib->search(s1,LibSys::library::field::ISBN)){
             
             }else{
                 cout<<"can not find the book"<<endl;
             }
             break;
         case 'A':
-             if(lib->search(s1,LibSys::library::field::AUTHOR)){
+             if(Person::lib->search(s1,LibSys::library::field::AUTHOR)){
                 
             }else{
                 cout<<"can not find the book"<<endl;
             }
             break;
         case 'P':
-            if(lib->search(s1,LibSys::library::field::PRESS)){
+            if(Person::lib->search(s1,LibSys::library::field::PRESS)){
                
             }else{
                 cout<<"can not find the book"<<endl;
