@@ -1,10 +1,41 @@
 #include"../include/person.h"
+
 // logs = new Logs();
 //具体功能等待完善
+using LibSys::library;
+
 logs* Person::ls = new logs();
-
+library* Person::lib = new library();
 void Admin::apply11(){
+    //search
+    string s1;
+    char c;
+    system("cls");
+    cout<<"how do you want to search the"
+    <<"book(N(NAME),I(ISBN),A(AUTHOR),P(PRESS)):"<<endl;
+    cin>>c;
+    cout<<"input the keyword:"<<endl;
+    cin>>s1;
+    
+    switch(c){
+        case 'N':
+            lib->search(s1,);
+            break;
+        case 'I':
+            break;
+        case 'A':
+            break;
+        case 'P':
+            break;
 
+    }
+    lib.search(s2,s1);//s1 changed into field
+
+    
+    
+    
+    
+    
 }
 void Admin::apply12(){
     
