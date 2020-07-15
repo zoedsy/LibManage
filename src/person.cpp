@@ -1,3 +1,4 @@
+#include"../include/person.h"
 #include"../include/library.h"
 
 // logs = new Logs();
@@ -19,17 +20,38 @@ void Admin::apply11(){
     
     switch(c){
         case 'N':
-            if(lib->search(s1));
+
+            if(lib->search(s1,LibSys::library::field::NAME)){
+                //if you wannna borrow the book
+            }else{
+                cout<<"can not find the book"<<endl;
+            }
             break;
         case 'I':
+            if(lib->search(s1,LibSys::library::field::ISBN)){
+                //if you wannna borrow the book
+            }else{
+                cout<<"can not find the book"<<endl;
+            }
             break;
         case 'A':
+             if(lib->search(s1,LibSys::library::field::AUTHOR)){
+                //if you wannna borrow the book
+            }else{
+                cout<<"can not find the book"<<endl;
+            }
             break;
         case 'P':
+            if(lib->search(s1,LibSys::library::field::PRESS)){
+                //if you wannna borrow the book
+            }else{
+                cout<<"can not find the book"<<endl;
+            }
             break;
 
     }
-  
+    //back admin function menu
+    apply1();
 
     
     
@@ -38,16 +60,30 @@ void Admin::apply11(){
     
 }
 void Admin::apply12(){
+    //INFORMATION MODIFY
+    string _isbn;
+    string newname;
+    cout<<"the isbn of the book whose name you wanna change:";
+    cin>>_isbn;
+    cout<<"change the name for the book(new name):";
+    cin>>newname;
+    lib->changeBookName(*this,_isbn,newname);
+    cout<<"successfully change book name!"<<endl;
+    //返回功能页
+    apply1();
     
 }
 void Admin::apply13(){
-    
+    //information insert
+   
+
 }
 void Admin::apply14(){
+    //information delete
     
 }
 void Admin::apply15(){
-    
+    //look up borrowlog
 }
 
 void Reader::apply21(){
