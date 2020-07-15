@@ -8,12 +8,14 @@ class Person{
 
 class Visitor:public Person{
     protected:
-        string account="游客";
+        string account;
     public:
         Visitor(){
            //直接进入搜索模块
         }
         void apply3();
+        void apply31();
+        void apply32();
 
 };
 class Reader:public Person{
@@ -27,6 +29,12 @@ class Reader:public Person{
         }
         string GetAccount()const noexcept{return account;}
         void apply2();
+        void apply1();  
+        void apply21();
+        void apply22();
+        void apply23();
+        void apply24();
+        void apply25();
 
 };
 class Admin:public Person{

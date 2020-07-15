@@ -102,6 +102,7 @@ void thirdPage1(int i){
 			case 1:
 			{
 				if (adm.ls->goin1() == 1)
+					cout<<"dgfasdg"<<endl;
 					adm.apply1();
 				break;
 			}
@@ -131,7 +132,9 @@ void thirdPage2(int i){
 			case 1:
 			{
 				if (rea.ls->goin2() == 1)
-					rea.apply2();
+					// cout<<"kdshjglahsgsg"<<endl;
+					rea.Reader::apply2();
+					
 				break;
 			}
 			case 2:
