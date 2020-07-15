@@ -18,7 +18,7 @@ class Visitor:public Person{
 };
 class Reader:public Person{
     protected:
-        string account="游客";
+        string account;
         string password;
         map<string,bool> readlog; //借阅信息存储的数据结构
     public:
