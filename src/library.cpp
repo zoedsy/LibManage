@@ -50,14 +50,14 @@ namespace LibSys{
             cout <<"fail to open the saving target!";
             exit(1);
         }
-        data << "序号\t书名\tISBN\t作者\t出版社\t分类\n";
+        data << "序号\t书名\tISBN\t作者\t出版社\t数量\t分类\n";
         data << BooksMap.size() << endl;
         auto it = BooksMap.begin();
         for(int i = 1 ; i <= BooksMap.size() ;i++)
         {
             Book *temp;
             temp = &(it->second);
-            data << i << "\t"<<temp->name <<"\t"<< temp->isbn <<"\t"<< temp->author <<"\t"<< temp-> press <<"\t"<< CategoryToString(temp->cate) << endl;
+            data << i << "\t"<<temp->name <<"\t"<< temp->isbn <<"\t"<< temp->author <<"\t"<< temp-> press <<"\t" <<temp->count <<"\t"<< CategoryToString(temp->cate) << endl;
             it++;
         }
         data.close();
