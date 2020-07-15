@@ -18,50 +18,6 @@ namespace LibSys{
     const std::string library::DefaultFile="defaultfile.dat";
     const std::string library::LOGFILE="logfile.dat";
 
-    //-----load all the book info------//
-    void library::update(std::string const&file) noexcept{
-        fstream data;
-        data.open("../data/" + file,ios::out | ios::app);
-        data.close();
-        data.open("../data/" + file, ios::in);
-        if(data.fail()){
-            cout << "fail to find the book data!";
-            exit(1);
-        }
-        string str;
-        getline(cin,str);
-        data>> str;
-        int number = atoi(str.c_str());
-        for(int i = 0 ; i < number ; i++){
-            int temp,count;
-            string name,isbn,author,press,cate;
-            data >>temp >>name >> isbn>>author >> press >> count >>cate;
-            Category n_cate = StringToCategory(cate);
-            Book mybook(name,isbn,author,press,count,n_cate);
-            BooksMap.insert(make_pair(isbn,mybook));
-            NameToISBN.insert(make_pair(name,isbn));
-        }
-        data.close();
-    }
-    void library::save(std::string const&file){
-        fstream data;
-        data.open("../data/" + file, ios::out|ios::ate);
-        if(data.fail()){
-            cout <<"fail to open the saving target!";
-            exit(1);
-        }
-        data << "序号\t书名\tISBN\t作者\t出版社\t分类\n";
-        data << BooksMap.size() << endl;
-        auto it = BooksMap.begin();
-        for(int i = 1 ; i <= BooksMap.size() ;i++)
-        {
-            Book *temp;
-            temp = &(it->second);
-            data << i << "\t"<<temp->name <<"\t"<< temp->isbn <<"\t"<< temp->author <<"\t"<< temp-> press <<"\t"<< CategoryToString(temp->cate) << endl;
-            it++;
-        }
-        data.close();
-    }
     void library::log(Message const&meg)noexcept{
         std::ofstream ofs(library::LOGFILE,std::ios::app);
         if(ofs){

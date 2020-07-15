@@ -96,7 +96,7 @@ namespace LibSys{
             /**
              * @brief save data to specific file
             */
-            void save(std::string const&file=DefaultFile);
+            void save(std::string const&file="");
             enum field{ISBN,NAME,AUTHOR,PRESS,BLUR};
             /**
              * @brief search book by bookname or else
