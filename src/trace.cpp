@@ -13,7 +13,7 @@ std::string trace::erase(tip const&object)noexcept
     return time;
 }
 
-void trace::show_all()
+void trace::show_all()const
 {
     std::cout << "���\tISBN\t������\t����ʱ��\n";
     int size = book_trace.size();
@@ -32,16 +32,19 @@ void trace::show_all()
         std::cout << "û�н��ļ�¼";
     }
 }
-void trace::search_people(std::string name)
+std::list<std::string> trace::search_people(std::string name)
 {
+    std::list<std::string> ISBNs;
     std::cout << "���ڰ��˲�����Ϣ" << std::endl;
     int size = book_trace.size();
     if (size != 0)
     {
         for (int i = 1; i <= size; i++)
         {
-            if (it->name == name)
+            if (it->name == name){
                 std::cout << i << "\t" << it->isbn << it->name << it->lend_time << std::endl;
+                ISBNs.push_back(it->isbn);
+            }
             it++;
         }
         std::cout << std::endl;
@@ -50,7 +53,7 @@ void trace::search_people(std::string name)
     else
     {
         std::cout << "û�н��ļ�¼";
-    }
+    }return ISBNs;
 }
 std::string trace::remove_people(std::string name)
 {
@@ -84,19 +87,19 @@ std::string trace::remove_people(std::string name)
         return "";
     }
 }
-std::string trace::remove_ID(int n)
+trace::tip trace::remove_ID(int n)
 {
     std::cout << "���ڰ����ɾ����Ϣ" << std::endl;
     int size = book_trace.size();
     if (size == 0)
     {
         std::cout << "û�н��ļ�¼���޷�ɾ��";
-        return "";
+        return {"","",""};
     }
     else if (n > size || n < 0)
     {
         std::cout << "��������ȷ����ţ�";
-        return "";
+        return {"","",""};
     }
     else 
     {
@@ -109,12 +112,13 @@ std::string trace::remove_ID(int n)
                 std::cout << "�����Ƴ����ļ�¼" << std::endl;
                 std::cout << i << "\t" << it->isbn << it->name << it->lend_time << std::endl;
                 std::string temp = it->lend_time;
+                trace::tip ret={it->name,it->isbn,it->lend_time};
                 book_trace.erase(it);
-                return temp;
+                return ret;
             }
             it++;
         }
         it = book_trace.begin();
-        return "";
+        return {"","",""};
     }
 }
