@@ -1,5 +1,6 @@
 #include"../include/library.h"
-#include"../include/nowtime.h"
+#include"../include/libTime.h"
+#include"../include/person.h"
 #include<iostream>
 #include<fstream>
 namespace LibSys{
@@ -18,7 +19,7 @@ namespace LibSys{
     const std::string library::LOGFILE="logfile.dat";
 
     void library::log(Message const&meg)noexcept{
-        ofstream ofs(LOGFILE,std::ios::app);
+        std::ofstream ofs(library::LOGFILE,std::ios::app);
         if(ofs){
             ofs<<meg()<<endl;
         }else 
@@ -32,7 +33,7 @@ namespace LibSys{
         return old_file;
         }
 
-    bool library::borrow(member const&m,std::string const&seg,field f)noexcept{
+    bool library::borrow(Reader const&m,std::string const&seg,field f)noexcept{
             switch(f)
             {
             case ISBN:
@@ -41,15 +42,17 @@ namespace LibSys{
                     Book book=BooksMap[seg];
                     if(--BooksMap[seg].count==0)
                         BooksMap.erase(seg);
-                    borrow_trace[m]=book;
-                    log(Message(getTime(),,ActionCreator("borrow",book.GetName().c_str(),book.isbn.c_str())));
+                    borrow_trace.append(m.GetAccount(),seg,getTime());
+                    log(Message(getTime(),m.GetAccount(),ActionCreator("borrow",book.GetName().c_str(),book.isbn.c_str())));
                     return true;
                 }catch(std::out_of_range&){
                     return false;
                 }
                 break;
             case NAME:
-                
+                for(auto&&it:NameToISBN){
+
+                }
                 break;
             case AUTHOR:
                 break;
@@ -60,20 +63,21 @@ namespace LibSys{
                 break;
             }
         }
-    bool library::borrow(member const&m,Book const&book)noexcept{
+    bool library::borrow(Reader const&m,Book const&book)noexcept{
         for(auto&&it:BooksMap){
             if(it.second==book){
                 if(--it.second.count==0){
-                    borrow_trace[const_cast<member>(m)]=book;
-                    log(Message(getTime(),,ActionCreator("borrow",book.GetName().c_str(),book.isbn.c_str())));
+                    borrow_trace.append(m.GetAccount(),book.GetIsbn(),getTime());
+                    log(Message(getTime(),m.GetAccount(),
+                        ActionCreator("borrow",book.GetName().c_str(),book.isbn.c_str())));
                     return true;
                 }
             }
         }return false;
     }
-    bool library::ret(member const&m,Book const&book)noexcept{
-        borrow_trace.erase(m);
-        log(Message(getTime(),,ActionCreator("return",book.GetName().c_str(),book.isbn.c_str())));
+    bool library::ret(Reader const&m,Book const&book)noexcept{
+        borrow_trace.erase({book.name,book.isbn,""});
+        log(Message(getTime(),m.GetAccount(),ActionCreator("return",book.GetName().c_str(),book.isbn.c_str())));
     }
     void library::list(bool Det)const noexcept{
         if(Det){
@@ -122,13 +126,41 @@ namespace LibSys{
                 break;
             }
         }
-    void library::buy(admin const&ad,Book const&book)noexcept{
-
+    void library::buy(Admin const&ad,Book &book)noexcept{
+        try{
+            BooksMap.at(book.GetIsbn());
+            BooksMap[book.GetIsbn()].merge(book);
+        }catch(std::out_of_range&){
+            BooksMap[book.GetIsbn()]=book;
+        }
+        log(Message(getTime(),ad.GetAccount(),
+                        ActionCreator("buy/add",book.GetName().c_str(),book.isbn.c_str())));
     }
-    bool library::changeBookName(admin const&,std::string const&,field,std::string const&){
-
+    bool library::changeBookName(Admin const&Ad,std::string const&_isbn,field,std::string const&new_name){
+        try{
+            BooksMap.at(_isbn);
+            BooksMap[_isbn].ChangeName(new_name);
+            log(Message(getTime(),Ad.GetAccount(),
+                        ActionCreator("change book: ",_isbn.c_str(),(" to "+new_name).c_str())));
+        }catch(std::out_of_range&){
+            std::cerr<<"Book Not Exists!"<<std::endl;
+        }
     }
-    void library::discard(admin const&,Book const&)noexcept{
-        
+    void library::discard(Admin const&Ad,Book const&book)noexcept{
+        try{
+            BooksMap.at(book.GetIsbn());
+            log(Message(getTime(),Ad.GetAccount(),
+                ActionCreator("discard "+book.GetCount(),book.GetName().c_str(),book.isbn.c_str())));
+            for(int i=0;i<book.GetCount();++i)
+                if(BooksMap[book.GetIsbn()].borrow()){
+                    std::cerr<<"Book "<<book.GetName()
+                        <<"\tISBN: "<<book.GetIsbn()
+                        <<"run out"<<std::endl;
+                log(Message(getTime(),Ad.GetAccount(),
+                    ActionCreator("discard all",book.GetName().c_str(),book.isbn.c_str())));
+                }
+        }catch(std::out_of_range&){
+            std::cerr<<"Book No Found!"<<std::endl;
+        }
     }
 }

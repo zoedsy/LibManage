@@ -1,6 +1,7 @@
 #ifndef _LIBRARY_H_
 #define _LIBRARY_H_ 1
 #include"trace.h"
+#include"person.h"
 #include<iosfwd>
 #include<string>
 #include<unordered_map>
@@ -22,7 +23,7 @@ namespace LibSys{
             friend class library;
             Book()=default;
             Book(std::string const&n,std::string const&isbn,std::string const&at,std::string const&pr,int const&c,Category cg);
-            Book(Book const&)noexcept=default;
+            // Book(Book const&)noexcept=default;
             /**
              * @brief remember to delete the pointer [count]
             */
@@ -33,6 +34,7 @@ namespace LibSys{
             inline const std::string GetPress()const noexcept{return press;}
             inline const std::string GetAuthor()const noexcept{return author;}
             inline const std::string GetIsbn()const noexcept{return isbn;}
+            inline const int GetCount()const noexcept{return count;}
             inline void ChangeName(std::string const&n)noexcept{name=n;}
             inline bool borrow()noexcept{return --count==0;}
             inline void ret()noexcept{++count;}
@@ -54,10 +56,6 @@ namespace LibSys{
             :time(t),person(p),action(a){}
         std::string operator()()const noexcept;
     };
-    class Person;
-    class Visitor;
-    class Reader;
-    class Admin;
     /**
      * @brief remember to log every action
     */
@@ -112,11 +110,11 @@ namespace LibSys{
              * @brief return book
             */
             bool ret(Reader const&,Book const&)noexcept;
-            bool changeBookName(Admin const&,std::string const&,field,std::string const&);
+            bool changeBookName(Admin const&,std::string const&_isbn,field,std::string const&_newName);
             /**
              * @brief purchase a bunch of books
             */
-            void buy(Admin const&,Book const&)noexcept;
+            void buy(Admin const&,Book &)noexcept;
             /**
              * @brief discard a bunch of books
             */
@@ -131,6 +129,9 @@ namespace LibSys{
              * @param Details list all info about this book if Details is true
             */
             void list(bool Details=0)const noexcept;
+            void listBorrowTrace()const noexcept;
+            void retAllBook(Reader const&)noexcept;
+            void retListIndex(unsigned)noexcept;
     };
 }
 #endif//_LIBRARY_H_

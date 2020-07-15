@@ -64,8 +64,8 @@ namespace LibSys{
         :name(n),isbn(isbn),author(at),press(pr),count(c),cate(cg){}
     
     Book& Book::merge(Book &b)noexcept{
-        count+=(b.count-1);
-        b.count=1;
+        count+=b.count;
+        b.count=0;
         return *this;
     }
 
