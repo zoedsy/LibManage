@@ -11,6 +11,15 @@ private:
         std::string name;
         std::string isbn;
         std::string lend_time;
+        bool operator==(const tip &object)
+        {
+            if (name == object.name && isbn == object.isbn)
+                return 1;
+            else
+            {
+                return 0;
+            }
+        }
     } tip;
     std::list<tip> book_trace;
     std::list<trace::tip>::iterator it = book_trace.begin();
@@ -33,9 +42,32 @@ public:
     std::string remove_people(std::string);
     //通过show_all的序号删除（代表还书）
     std::string remove_ID(int n);
+    std::string erase(tip object);
 
     ~trace() = default;
 };
+std::string trace::erase(tip object)
+{
+    int size = book_trace.size();
+    if (size == 0)
+    {
+        for (auto it = book_trace.begin(); it != book_trace.end(); it++)
+        {
+            if (*it == object)
+            {
+                std::string temp = it->lend_time;
+                book_trace.erase(it);
+                return temp;
+            }
+        }
+        return "";
+    }
+    else
+    {
+        return "";
+    }
+}
+
 void trace::show_all()
 {
     std::cout << "序号\tISBN\t借书人\t借书时间\n";
