@@ -5,20 +5,14 @@
 namespace LibSys{
     //import namespace std
     using namespace std;
-    //---------Book------------------//
-    Book& Book::operator=(Book const&b)noexcept{
-        name=b.name;
-        author=b.author;
-        press=b.press;
-        count=b.count;
-        cate=b.cate;
-        isbn=b.isbn;
-    }
+    
     //---------Message----------------//
     string Message::operator()()const noexcept{
         return time+'\t'+person+'\t'+action;
     }
-
+    std::string ActionCreator(const char*__act,const char*__bn,const char*__isbn){
+        return std::string(__act)+" "+__bn+"(ISBN:"+__isbn+")";
+    }
     //--------library-------------//
     void library::log(Message const&meg)noexcept{
         ofstream ofs(LOGFILE,ios::app);

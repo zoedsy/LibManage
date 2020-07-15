@@ -1,7 +1,86 @@
-#include"library.h"
+#include"../include/library.h"
 #include<iostream>
+#include<map>
 namespace LibSys{
-    Book::Book(std::string n,std::string is,std::string pr,int const&c,Category cg)try
-        :name(n),isbn({is}),press(pr),count(new int(c)),cate(cg){}
-        catch(std::bad_alloc const&){std::cerr<<"out of the contain of library"<<std::endl;}
+    //-----auxilary function-----//
+    std::string CategoryToString(Category cate){
+        switch(cate){
+            case MAGAZINE:
+                return "magezine";
+                break;
+            case TEXTBOOK:
+                return "textbook";
+                break;
+            case PRIMER:
+                return "primer";
+                break;
+            case AUTOBIOGRAPHY:
+                return "autobiography";
+                break;
+            case FAIRY:
+                return "fairy";
+                break;
+            case NOVEL:
+                return "novel";
+                break;
+            case ADVENTURE:
+                return "adventure";
+                break;
+            case FICTION:
+                return "fiction";
+                break;
+            case SUNDRIES:
+                return "sundries";
+                break;
+        }
+    }
+    Category StringToCategory(std::string const&str){
+        if(str=="magezine")return Category::MAGAZINE;
+        else if(str=="textbook")return Category::TEXTBOOK;
+        else if(str=="primer")return Category::PRIMER;
+        else if(str=="autobiography")return Category::AUTOBIOGRAPHY;
+        else if(str=="fairy")return Category::FAIRY;
+        else if(str=="novel")return Category::NOVEL;
+        else if(str=="adventure")return Category::ADVENTURE;
+        else if(str=="fiction")return Category::FICTION;
+        else if(str=="sundries")return Category::SUNDRIES;
+    }
+    //friend function of Book
+    std::ostream& operator<<(std::ostream&os,Book const&book){
+        return book.info(os);
+    }
+    //------member part--------//
+
+    Book& Book::operator=(Book const&b)noexcept{
+        name=b.name;
+        author=b.author;
+        press=b.press;
+        count=b.count;
+        cate=b.cate;
+        isbn=b.isbn;
+        return *this;
+    }
+    Book::Book(std::string const&n,std::string const&isbn,std::string const&at,std::string const&pr,int const&c,Category cg)
+        :name(n),isbn(isbn),author(at),press(pr),count(c),cate(cg){}
+    
+    Book& Book::merge(Book &b)noexcept{
+        count+=(b.count-1);
+        b.count=1;
+        return *this;
+    }
+
+    std::ostream& Book::info(std::ostream&os=std::cout)const noexcept{
+        os<<"ISBN: "<<isbn
+        <<"\tname: "<<name
+        <<"\nauthor: "<<author
+        <<"\tpress: "<<press
+        <<"\nremains: "<<count<<"\t belongs to "<<CategoryToString(cate)<<std::endl;
+        return os;
+    }
+
+    std::string Book::toString()const noexcept{
+        return
+            isbn+' '+name+' '+author+' '+press+' '
+            +std::to_string(count)+' '+CategoryToString(cate);
+        }
 }

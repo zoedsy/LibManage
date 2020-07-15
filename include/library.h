@@ -13,20 +13,21 @@ namespace LibSys{
     class Book{
         private:
             std::string name,author,press;
-            int count;
-            const Category cate;
-            Book& operator=(Book const&)noexcept;
+            int count=0;
+            Category cate=Category::SUNDRIES;
+            std::string isbn;
         public:
+            Book& operator=(Book const&)noexcept;
             friend class library;
-            const std::string isbn;
-            Book()=delete;
-            Book(std::string n,std::string isbn,std::string pr,int const&c,Category cg);
-            Book(Book const&)noexcept;
+            Book()=default;
+            Book(std::string const&n,std::string const&isbn,std::string const&at,std::string const&pr,int const&c,Category cg);
+            Book(Book const&)noexcept=default;
             /**
              * @brief remember to delete the pointer [count]
             */
-            ~Book()noexcept;
+            ~Book()noexcept=default;
             bool operator==(Book const&b)const noexcept{return isbn==b.isbn;}
+            std::ostream& info(std::ostream&)const noexcept;
             inline const std::string GetName()const noexcept{return name;}
             inline const std::string GetPress()const noexcept{return press;}
             inline const std::string GetAuthor()const noexcept{return author;}
@@ -34,13 +35,20 @@ namespace LibSys{
             inline void ChangeName(std::string const&n)noexcept{name=n;}
             inline bool borrow()noexcept{return --count==0;}
             inline void ret()noexcept{++count;}
+            std::string toString()const noexcept;
+            /**
+             * @brief move extra books to this heap if equals
+             * keep the merged heap at least one book
+            */
+            Book& merge(Book &)noexcept;
+            friend std::ostream& operator<<(std::ostream&,Book const&);
     };
-    std::string ActionCreator(const char*__act,const char*__bn,const char*__isbn){
-        return std::string(__act)+" "+__bn+"(ISBN:"+__isbn+")";
-    }
+    Category StringToCategory(std::string const&str);
+    std::string CategoryToString(Category cate);
     class visitor;
     class member;
     class admin;
+    std::string ActionCreator(const char*__act,const char*__bn,const char*__isbn);
     class Message final{
         std::string time,person,action;
         public:
@@ -54,7 +62,9 @@ namespace LibSys{
     class library{
         private:
             std::unordered_map<std::string,Book>                BooksMap;
-            std::unordered_map<member,Book>                   borrow_trace;
+            // std::unordered_map<member,Book>                   borrow_trace;
+            
+            std::unordered_map<std::string,std::string>         borrow_trace;
             std::unordered_multimap<std::string,std::string>    NameToISBN;
             std::string DestFile;
             /**
