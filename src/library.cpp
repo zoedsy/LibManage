@@ -7,15 +7,18 @@ namespace LibSys{
     using namespace std;
     
     //---------Message----------------//
-    string Message::operator()()const noexcept{
+    std::string Message::operator()()const noexcept{
         return time+'\t'+person+'\t'+action;
     }
     std::string ActionCreator(const char*__act,const char*__bn,const char*__isbn){
         return std::string(__act)+" "+__bn+"(ISBN:"+__isbn+")";
     }
     //--------library-------------//
+    const std::string library::DefaultFile="defaultfile.dat";
+    const std::string library::LOGFILE="logfile.dat";
+
     void library::log(Message const&meg)noexcept{
-        ofstream ofs(LOGFILE,ios::app);
+        ofstream ofs(LOGFILE,std::ios::app);
         if(ofs){
             ofs<<meg()<<endl;
         }else 
