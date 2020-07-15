@@ -1,4 +1,3 @@
-#include"../include/person.h"
 #include"../include/library.h"
 
 // logs = new Logs();
@@ -20,7 +19,7 @@ void Admin::apply11(){
     
     switch(c){
         case 'N':
-            lib->search(s1,field(1));
+            if(lib->search(s1));
             break;
         case 'I':
             break;

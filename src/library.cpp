@@ -78,6 +78,7 @@ namespace LibSys{
         }
     }
     bool library::search(string const&seg,field f)noexcept{
+        bool found=false;
         switch(f){
             case ISBN:
                 try{
@@ -87,7 +88,6 @@ namespace LibSys{
                     return false;
                 }
             case NAME:
-                bool found=false;
                 std::cout<<"Book: "<<seg<<std::ends;
                     for(auto&&it:NameToISBN){
                         if(it.first==seg){
@@ -97,7 +97,6 @@ namespace LibSys{
                     }
                 return found;
             case AUTHOR:
-                bool found=false;
                 std::cout<<"Author: "<<seg<<std::ends;
                 for(auto&&it:BooksMap){
                     if(it.second.author==seg)
@@ -107,7 +106,6 @@ namespace LibSys{
                 }
                 return found;
             case PRESS:
-                bool found=false;
                 std::cout<<"Press: "<<seg<<std::ends;
                 for(auto&&it:BooksMap){
                     if(it.second.press==seg)
@@ -118,7 +116,7 @@ namespace LibSys{
                 return found;
             default:
             //use regex to search
-                break;
+            return false;
             }
         }
     void library::buy(Admin const&ad,Book &book)noexcept{
@@ -137,8 +135,10 @@ namespace LibSys{
             BooksMap[_isbn].ChangeName(new_name);
             log(Message(getTime(),Ad.GetAccount(),
                         ActionCreator("change book: ",_isbn.c_str(),(" to "+new_name).c_str())));
+            return true;
         }catch(std::out_of_range&){
             std::cerr<<"Book Not Exists!"<<std::endl;
+            return false;
         }
     }
     void library::discard(Admin const&Ad,Book const&book)noexcept{

@@ -1,11 +1,16 @@
 #pragma once
 #include"log.h"
-#include"library.h"
 #include<map>
+
+//forward declaration
+namespace LibSys{
+    class library;
+}
+
 class Person{
     public:
         static logs* ls;
-        static library*lib;
+        static LibSys::library*lib;
         
 };
 

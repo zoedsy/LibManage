@@ -7,31 +7,24 @@ namespace LibSys{
         switch(cate){
             case MAGAZINE:
                 return "magezine";
-                break;
             case TEXTBOOK:
                 return "textbook";
-                break;
             case PRIMER:
                 return "primer";
-                break;
             case AUTOBIOGRAPHY:
                 return "autobiography";
-                break;
             case FAIRY:
                 return "fairy";
-                break;
             case NOVEL:
                 return "novel";
-                break;
             case ADVENTURE:
                 return "adventure";
-                break;
             case FICTION:
                 return "fiction";
-                break;
             case SUNDRIES:
                 return "sundries";
-                break;
+            default:
+                return "";
         }
     }
     Category StringToCategory(std::string const&str){
@@ -44,6 +37,7 @@ namespace LibSys{
         else if(str=="adventure")return Category::ADVENTURE;
         else if(str=="fiction")return Category::FICTION;
         else if(str=="sundries")return Category::SUNDRIES;
+        return Category::SUNDRIES;
     }
     //friend function of Book
     std::ostream& operator<<(std::ostream&os,Book const&book){
