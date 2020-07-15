@@ -5,6 +5,8 @@
 class Person{
     public:
         static logs* ls;
+        static library*lib;
+        
 };
 
 class Visitor:public Person{
