@@ -50,7 +50,7 @@ namespace LibSys{
             cout <<"fail to open the saving target!";
             exit(1);
         }
-        data << "ÐòºÅ\tÊéÃû\tISBN\t×÷Õß\t³ö°æÉç\tÊýÁ¿\t·ÖÀà\n";
+        data << "ï¿½ï¿½ï¿½\tï¿½ï¿½ï¿½ï¿½\tISBN\tï¿½ï¿½ï¿½ï¿½\tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\tï¿½ï¿½ï¿½ï¿½\tï¿½ï¿½ï¿½ï¿½\n";
         data << BooksMap.size() << endl;
         auto it = BooksMap.begin();
         for(int i = 1 ; i <= BooksMap.size() ;i++)
@@ -222,5 +222,21 @@ namespace LibSys{
         auto&&temp=borrow_trace.remove_ID(Ind);
         log(Message(getTime(),temp.name,
             ActionCreator("return",ISBNToName(temp.isbn).c_str(),temp.isbn.c_str())));
+    }
+    void library::personalBorrowTrace(Reader const&reader)noexcept{
+        auto&&trace = borrow_trace.search_people(reader.GetAccount());
+        if(trace.empty()){
+            std::cout<<"none"<<std::endl;
+        }else{
+            auto ISBNToName=[&](std::string const&isbn)->std::string{
+                for(auto&&it:NameToISBN){
+                    if(it.second==isbn)
+                        return it.first;
+                }return "";
+            };
+            for(auto&&it:trace){
+                std::cout<<ISBNToName(it)<<'\t'<<it<<std::endl;
+            }
+        }
     }
 }
