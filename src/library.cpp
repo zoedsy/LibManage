@@ -117,7 +117,7 @@ namespace LibSys{
         }return false;
     }
     bool library::ret(Reader const&m,Book const&book)noexcept{
-        std::string BorrowTime=borrow_trace.erase({book.name,book.isbn,""});
+        std::string BorrowTime=borrow_trace.erase({m.GetAccount(),book.isbn,""});
         log(Message(getTime(),m.GetAccount(),ActionCreator("return",book.GetName(),book.isbn)));
         return BorrowTime!="";
     }
