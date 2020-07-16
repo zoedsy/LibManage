@@ -98,18 +98,19 @@ void secondPage(int i){
 }
 void thirdPage1(int i){
 	Admin adm;
+	Logs* ls1=Logs::getLogs();
 	switch (i)
 			{
 			case 1:
 			{
-				if (adm.ls->goin1() == 1)
+				if (ls1->goin1() == 1)
 					// cout<<"dgfasdg"<<endl;
 					adm.apply1();
 				break;
 			}
 			case 2:
 			{
-				adm.ls->change1();
+				ls1->change1();
 				secondPage(1);
 			}
 			case 3:
@@ -128,11 +129,12 @@ void thirdPage1(int i){
 }
 void thirdPage2(int i){
 		Reader rea;
+		Logs* ls1=Logs::getLogs();
 		switch (i)
 			{
 			case 1:
 			{
-				if (rea.ls->goin2() == 1)
+				if (ls1->goin2() == 1)
 					// cout<<"kdshjglahsgsg"<<endl;
 					rea.Reader::apply2();
 					
@@ -140,12 +142,12 @@ void thirdPage2(int i){
 			}
 			case 2:
 			{
-				rea.ls->registers2();
+				ls1->registers2();
 				secondPage(2);
 			}
 			case 3:
 			{
-				rea.ls->change2();
+				ls1->change2();
 				secondPage(2);
 			}
 			case 4:

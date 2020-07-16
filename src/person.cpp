@@ -1,7 +1,7 @@
 /*
  * @Author: DuShiyi
  * @Date: 2020-07-15 17:56:32
- * @LastEditTime: 2020-07-16 15:15:21
+ * @LastEditTime: 2020-07-16 17:22:20
  * @LastEditors: Please set LastEditors
  * @Description: about person(admin ,visitor,reader)
  * @FilePath: \LibManage\src\person.cpp
@@ -13,8 +13,8 @@
 //具体功能等待完善
 using LibSys::library;
 
-Logs* Person::ls = new Logs();
-library* Person::lib = new library();
+// Logs* Person::ls = new Logs();
+// library* Person::lib = new library();
 /*==============================================================================
 |函 数 名|:apply11
 |功能描述|:管理员登陆后的search界面
@@ -27,6 +27,7 @@ library* Person::lib = new library();
 ========================================================================================*/ 
 void Admin::apply11(){
     //search
+    LibSys::library* lib1= LibSys::library::getLibrary();
     string s1;
     char c;
     system("cls");
@@ -39,7 +40,7 @@ void Admin::apply11(){
     switch(c){
         case 'N':
 
-            if(lib->search(s1,LibSys::library::field::NAME)){
+            if(lib1->search(s1,LibSys::library::field::NAME)){
               
 
             }else{
@@ -47,21 +48,21 @@ void Admin::apply11(){
             }
             break;
         case 'I':
-            if(lib->search(s1,LibSys::library::field::ISBN)){
+            if(lib1->search(s1,LibSys::library::field::ISBN)){
             
             }else{
                 cout<<"can not find the book"<<endl;
             }
             break;
         case 'A':
-             if(lib->search(s1,LibSys::library::field::AUTHOR)){
+             if(lib1->search(s1,LibSys::library::field::AUTHOR)){
                 
             }else{
                 cout<<"can not find the book"<<endl;
             }
             break;
         case 'P':
-            if(lib->search(s1,LibSys::library::field::PRESS)){
+            if(lib1->search(s1,LibSys::library::field::PRESS)){
                
             }else{
                 cout<<"can not find the book"<<endl;
@@ -85,13 +86,14 @@ void Admin::apply11(){
 ========================================================================================*/ 
 void Admin::apply12(){
     //INFORMATION MODIFY
+    LibSys::library* lib1= LibSys::library::getLibrary();
     string _isbn;
     string newname;
     cout<<"the isbn of the book whose name you wanna change:";
     cin>>_isbn;
     cout<<"change the name for the book(new name):";
     cin>>newname;
-    lib->changeBookName(*this,_isbn,newname);
+    lib1->changeBookName(*this,_isbn,newname);
     cout<<"successfully change book name!"<<endl;
     //返回功能主页
     system("pause");
@@ -111,11 +113,12 @@ void Admin::apply12(){
 ========================================================================================*/ 
 void Admin::apply13(){
     //information insert
+    LibSys::library* lib1= LibSys::library::getLibrary();
     string n;string isbn;string author;string press;int count;string cg;
     cout<<"please input the information of book:(no.,isbn,author,press,count,category):"<<endl;
     cin>>n;cin>>isbn;cin>>author;cin>>press;cin>>count;cin>>cg;
     LibSys::Book b(n,isbn,author,press,count,LibSys::StringToCategory(cg));
-    Person::lib->buy(*this,b);
+    lib1->buy(*this,b);
     cout<<"successfully insert book"<<endl;
     system("pause");
     apply1();
@@ -133,11 +136,12 @@ void Admin::apply13(){
 ========================================================================================*/ 
 void Admin::apply14(){
     //information delete
+    LibSys::library* lib1= LibSys::library::getLibrary();
     string n;string isbn;string author;string press;int count;string cg;
     cout<<"please input the information of book to delete:(no.,isbn,author,press,count,category):"<<endl;
     cin>>n;cin>>isbn;cin>>author;cin>>press;cin>>count;cin>>cg;
     LibSys::Book b(n,isbn,author,press,count,LibSys::StringToCategory(cg));
-    Person::lib->discard(*this,b);
+    lib1->discard(*this,b);
     cout<<"successfully delete book"<<endl;
     system("pause");
     apply1();
@@ -156,7 +160,8 @@ void Admin::apply14(){
 ========================================================================================*/ 
 void Admin::apply15(){
     //look up borrowlog
-    Person::lib->listBorrowTrace();
+    LibSys::library* lib1= LibSys::library::getLibrary();
+    lib1->listBorrowTrace();
     system("pause");
     apply1();
 }
@@ -173,6 +178,7 @@ void Admin::apply15(){
 ========================================================================================*/ 
 void Reader::apply21(){
     //search
+    LibSys::library* lib1= LibSys::library::getLibrary();
     string s1;
     char c;
     system("cls");
@@ -185,7 +191,7 @@ void Reader::apply21(){
     switch(c){
         case 'N':
 
-            if(Person::lib->search(s1,LibSys::library::field::NAME)){
+            if(lib1->search(s1,LibSys::library::field::NAME)){
               
 
             }else{
@@ -193,21 +199,21 @@ void Reader::apply21(){
             }
             break;
         case 'I':
-            if(Person::lib->search(s1,LibSys::library::field::ISBN)){
+            if(lib1->search(s1,LibSys::library::field::ISBN)){
             
             }else{
                 cout<<"can not find the book"<<endl;
             }
             break;
         case 'A':
-             if(Person::lib->search(s1,LibSys::library::field::AUTHOR)){
+             if(lib1->search(s1,LibSys::library::field::AUTHOR)){
                 
             }else{
                 cout<<"can not find the book"<<endl;
             }
             break;
         case 'P':
-            if(Person::lib->search(s1,LibSys::library::field::PRESS)){
+            if(lib1->search(s1,LibSys::library::field::PRESS)){
                
             }else{
                 cout<<"can not find the book"<<endl;
@@ -231,9 +237,10 @@ void Reader::apply21(){
 ========================================================================================*/ 
 void Reader::apply22(){
     //borrow
+    LibSys::library* lib1= LibSys::library::getLibrary();
     string isbn;
     cout<<"please input the isbn of the book:"<<endl;
-    Person::lib->borrow(*this,isbn);
+    lib1->borrow(*this,isbn);
 }
 /*==============================================================================
 |函 数 名|:apply11
@@ -247,17 +254,18 @@ void Reader::apply22(){
 ========================================================================================*/ 
 void Reader::apply23(){
     //return
+    LibSys::library* lib1= LibSys::library::getLibrary();
     char a;
     string isbn;
     cout<<"Do you wannna return all the books?(Y/N):";
     cin>>a;
     if(a=='Y'){
-        Person::lib->retAllBook(*this);
+        lib1->retAllBook(*this);
         cout<<"successfully return all the books!"<<endl;
     }else if(a=='N'){
         cout<<"input isbn of the book you wanna return:";
         cin>>isbn;
-        Person::lib->ret(*this,isbn);
+        lib1->ret(*this,isbn);
         cout<<"successfully return  the book!"<<endl;
     }else{
         cout<<"input error!"<<endl;
@@ -265,20 +273,7 @@ void Reader::apply23(){
     }
     
 }
-/*==============================================================================
-|函 数 名|:apply24
-|功能描述|:
-|输入参数|:无
-|输出参数|:无
-|返 回 值|:无
-|创建日期|:2020年7月14日
-|修改日期|:2020年7月16日
-|作    者|：杜诗仪
-========================================================================================*/ 
-// void Reader::apply24(){
-//     //modify personal 
-//     //nothing
-// }
+
 
 /*==============================================================================
 |函 数 名|:apply25
@@ -292,7 +287,8 @@ void Reader::apply23(){
 ========================================================================================*/ 
 void Reader::apply25(){
     //look up borrowlog
-    Person::lib->personalBorrowTrace(*this);
+    LibSys::library* lib1= LibSys::library::getLibrary();
+    lib1->personalBorrowTrace(*this);
     system("pause");
 }
 /*==============================================================================
@@ -307,7 +303,8 @@ void Reader::apply25(){
 ========================================================================================*/ 
 void Visitor::apply31(){
     //look up all the information
-    Person::lib->list(true);
+    LibSys::library* lib1= LibSys::library::getLibrary();
+    lib1->list(true);
     system("pause");
     apply3();
 
@@ -324,6 +321,7 @@ void Visitor::apply31(){
 ========================================================================================*/ 
 void Visitor::apply32(){
     //search information
+    LibSys::library* lib1= LibSys::library::getLibrary();
      string s1;
     char c;
     system("cls");
@@ -336,7 +334,7 @@ void Visitor::apply32(){
     switch(c){
         case 'N':
 
-            if(Person::lib->search(s1,LibSys::library::field::NAME)){
+            if(lib1->search(s1,LibSys::library::field::NAME)){
               
 
             }else{
@@ -344,21 +342,21 @@ void Visitor::apply32(){
             }
             break;
         case 'I':
-            if(Person::lib->search(s1,LibSys::library::field::ISBN)){
+            if(lib1->search(s1,LibSys::library::field::ISBN)){
             
             }else{
                 cout<<"can not find the book"<<endl;
             }
             break;
         case 'A':
-             if(Person::lib->search(s1,LibSys::library::field::AUTHOR)){
+             if(lib1->search(s1,LibSys::library::field::AUTHOR)){
                 
             }else{
                 cout<<"can not find the book"<<endl;
             }
             break;
         case 'P':
-            if(Person::lib->search(s1,LibSys::library::field::PRESS)){
+            if(lib1->search(s1,LibSys::library::field::PRESS)){
                
             }else{
                 cout<<"can not find the book"<<endl;
@@ -383,6 +381,7 @@ void Visitor::apply32(){
 ========================================================================================*/ 
 void Admin::apply1()  
 {
+    
     while(1){
         int i;
         system("cls");
@@ -449,9 +448,9 @@ void Reader::apply2()   //读者功能
         cout<<"1.book search"<<endl;
         cout<<"2.borrow book"<<endl;
         cout<<"3.return book"<<endl;
-        cout<<"4.modify personal informatin"<<endl;
-        cout<<"5.look up borrowlog"<<endl;
-        cout<<"6.back to last page"<<endl;
+        // cout<<"4.modify personal informatin"<<endl;
+        cout<<"4.look up borrowlog"<<endl;
+        cout<<"5.back to last page"<<endl;
         cout<<"please input the choice:(1-6)";
         cin>>i;
         system("cls");
@@ -469,16 +468,14 @@ void Reader::apply2()   //读者功能
                 apply23();
                 break;
             case 4:
-            
-                apply24();
-                break;
-            case 5:
-            
                 apply25();
                 break;
-            case 6:
+               
+            case 5:
                 return;
                 break;
+              
+            
             default:
                 cout<<"input error!"<<endl;
                 

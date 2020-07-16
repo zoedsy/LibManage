@@ -123,7 +123,7 @@ namespace LibSys{
     */
     class library{
         private:
-            static library* lib;
+            library* lib;
             trace                                               borrow_trace;
             std::unordered_multimap<std::string,std::string>    NameToISBN;
             std::string                                         DestFile;
@@ -144,7 +144,7 @@ namespace LibSys{
              * @brief default constructor 
              * using the default file to fetch data
             */
-            static library* getLibrary();
+           
             ~library()noexcept{};
             /**
              * @brief assign the file to reload

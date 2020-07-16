@@ -247,8 +247,5 @@ namespace LibSys{
             }
         }
     }
-    library* library::getLibrary(){
-        return lib;
-    }
     library* library::lib =new library();
 }
