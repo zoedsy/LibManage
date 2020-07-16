@@ -1,7 +1,7 @@
 /*
  * @Author: DuShiyi
  * @Date: 2020-07-15 17:56:32
- * @LastEditTime: 2020-07-16 23:15:44
+ * @LastEditTime: 2020-07-16 23:43:01
  * @LastEditors: Please set LastEditors
  * @Description: about person(admin ,visitor,reader)
  * @FilePath: \LibManage\src\person.cpp
@@ -27,7 +27,7 @@ void Admin::apply10(){
     //显示所有内容
     LibSys::library* lib1= LibSys::library::getLibrary();
     system("cls");
-    lib1->list(1);
+    lib1->list(true);
     system("pause");
     //back admin function menu
     // apply1();    
@@ -108,12 +108,12 @@ void Admin::apply12(){
     LibSys::library* lib1= LibSys::library::getLibrary();
     string _isbn;
     string newname;
-    cout<<"";
+    cout<<"请输入书的ISBN：";
     cin>>_isbn;
-    cout<<"change the name for the book(new name):";
+    cout<<"请输入书的新名字：";
     cin>>newname;
     lib1->changeBookName(*this,_isbn,newname);
-    cout<<"successfully change book name!"<<endl;
+    // cout<<"successfully change book name!"<<endl;
     //返回功能主页
     system("pause");
     // apply1();
@@ -134,12 +134,12 @@ void Admin::apply13(){
     //information insert
     LibSys::library* lib1= LibSys::library::getLibrary();
     string n;string isbn;string author;string press;int count;string cg;
-    cout<<"please input the information of book:(no.,isbn,author,press,count,category):"<<endl;
+    cout<<"请按照示例格式输入所录入书的信息(书名 ISBN 出版社 库存量 上架类型):";
     cin>>n;cin>>isbn;cin>>author;cin>>press;cin>>count;cin>>cg;
     LibSys::Book b(n,isbn,author,press,count,LibSys::StringToCategory(cg));
     lib1->buy(*this,b);
-    cout<<"successfully insert book"<<endl;
-    system("pause");
+    // cout<<"successfully insert book"<<endl;
+    // system("pause");
     // apply1();
 
 }
@@ -157,11 +157,11 @@ void Admin::apply14(){
     //information delete
     LibSys::library* lib1= LibSys::library::getLibrary();
     string n;string isbn;string author;string press;int count;string cg;
-    cout<<"please input the information of book to delete:(no.,isbn,author,press,count,category):"<<endl;
+    cout<<"请按照示例格式输入所删除书的信息(书名 ISBN 出版社 数量 上架类型):";
     cin>>n;cin>>isbn;cin>>author;cin>>press;cin>>count;cin>>cg;
     LibSys::Book b(n,isbn,author,press,count,LibSys::StringToCategory(cg));
     lib1->discard(*this,b);
-    cout<<"successfully delete book"<<endl;
+    // cout<<"successfully delete book"<<endl;
     system("pause");
     // apply1();
 
@@ -278,7 +278,7 @@ void Reader::apply22(){
     //borrow
     LibSys::library* lib1= LibSys::library::getLibrary();
     string isbn;
-    cout<<"please input the isbn of the book:"<<endl;
+    cout<<"请输入书的ISBN:"<<endl;
     cin>>isbn;
     lib1->borrow(*this,isbn);
     system("pause");
@@ -302,20 +302,20 @@ void Reader::apply23(){
         
         char a;
         string isbn;
-        cout<<"Do you wannna return all the books?(Y/N):";
+        cout<<"您希望归还所有书本吗(Y/N):";
         cin>>a;
         if(a=='Y'){
             lib1->retAllBook(*this);
             flag=0;
             // cout<<"successfully return all the books!"<<endl;
         }else if(a=='N'){
-            cout<<"input isbn of the book you wanna return:";
+            cout<<"输入你想要归还的书籍的ISBN:";
             cin>>isbn;
             lib1->ret(*this,isbn);
             flag=0;
             // cout<<"successfully return  the book!"<<endl;
         }else{
-            cout<<"input error!"<<endl;
+            cout<<"输入错误!"<<endl;
             flag=1;
         }
     }while(flag);
@@ -478,8 +478,6 @@ void Admin::apply1()
                 break;
             default:
                 cout<<"输入错误!"<<endl;
-                
-                
 
         }
     
