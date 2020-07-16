@@ -156,8 +156,18 @@ void Admin::apply13(){
     //information insert
     LibSys::library* lib1= LibSys::library::getLibrary();
     string n;string isbn;string author;string press;int count;string cg;
-    cout<<"请按照示例格式输入所录入书的信息(书名 ISBN 出版社 作者 库存量 上架类型):";
-    cin>>n;cin>>isbn;cin>>author;cin>>press;cin>>count;cin>>cg;
+    cout<<"请按照示例格式输入所录入书的信息(书名 ISBN 出版社 作者 库存量 上架类型):"<<endl;
+    cout << "书名：";
+    cin >> n;
+    cout << "ISBN：";
+    cin >> isbn;
+    cout << "作者：";
+    cin >> author;
+    cout << "出版社：";
+    cin >> press;
+    cout << "数量：";
+    cin >> count;
+    cout << "上架类型：";
     LibSys::Book b(n,isbn,author,press,count,LibSys::StringToCategory(cg));
     lib1->buy(*this,b);
     // cout<<"successfully insert book"<<endl;
@@ -179,8 +189,19 @@ void Admin::apply14(){
     //information delete
     LibSys::library* lib1= LibSys::library::getLibrary();
     string n;string isbn;string author;string press;int count;string cg;
-    cout<<"请按照示例格式输入所删除书的信息(书名 ISBN 作者 出版社 数量 上架类型):";
-    cin>>n;cin>>isbn;cin>>author;cin>>press;cin>>count;cin>>cg;
+    cout<<"请按照示例格式输入所删除书的信息(书名 ISBN 作者 出版社 数量 上架类型):" << endl;
+    cout << "书名：";
+    cin >> n;
+    cout << "ISBN：";
+    cin >> isbn;
+    cout << "作者：";
+    cin >> author;
+    cout << "出版社：";
+    cin >> press;
+    cout << "数量：";
+    cin >> count;
+    cout << "上架类型：" ;
+    cin >> cg;
     LibSys::Book b(n,isbn,author,press,count,LibSys::StringToCategory(cg));
     lib1->discard(*this,b);
     // cout<<"successfully delete book"<<endl;
