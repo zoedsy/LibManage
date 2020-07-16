@@ -1,6 +1,6 @@
 # test by mingw32-make
 main:main.exe
-obj = src/book.obj src/libTime.obj src/library.obj src/person.obj src/trace.obj
+obj = src/book.obj src/libTime.obj src/library.obj src/person.obj src/trace.obj src/log.obj
 OutFilePath = src
 StaticLibName = library
 StaticLibPath = src
@@ -17,6 +17,8 @@ src/person.obj:src/person.cpp
 	g++ -c src/person.cpp -o src/person.obj
 src/trace.obj:src/trace.cpp
 	g++ -c src/trace.cpp -o src/trace.obj
+src/log.obj:src/log.cpp
+	g++ -c src/log.cpp -o src/log.obj
 
 libMake:lib$(StaticLibName).a
 	g++ -std=c++11 login/main.cpp -L $(StaticLibPath) -l $(StaticLibName) -o main.exe
@@ -28,5 +30,6 @@ clean:$(obj) $(StaticLibPath)/lib$(StaticLibName).a
 	rm src/library.obj 
 	rm src/person.obj 
 	rm src/trace.obj 
+	rm src/log.obj
 	rm $(StaticLibPath)/lib$(StaticLibName).a
 	echo 'clean done'
