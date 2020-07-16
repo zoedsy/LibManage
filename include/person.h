@@ -37,7 +37,6 @@ class Reader:public Person{
         }
         string GetAccount()const noexcept{return account;}
         void apply2();
-        void apply1();  
         void apply21();
         void apply22();
         void apply23();
