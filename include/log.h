@@ -13,7 +13,13 @@ private:
 	vector<string>Password1;
 	vector<string>Account2;
 	vector<string>Password2;//向量数组储存密码和账户
+	static Logs*ls;
+	Logs(){
+
+	}
 public:
+	static Logs*getLogs();
+
 	/* ============================================================
 |函 数 名|：autosave1
 |功能描述|：将改变后的数据存储到管理员账号密码文件中
@@ -531,6 +537,7 @@ public:
 		return 0;
 	}
 };
+
 #endif
 
 

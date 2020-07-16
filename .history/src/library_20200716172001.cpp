@@ -16,54 +16,54 @@ namespace LibSys{
         return std::string(__act)+" "+__bn+"(ISBN:"+__isbn+")";
     }
     //--------library-------------//
-    const std::string library::DefaultFile="data/defaultfile.dat";
-    std::string library::LOGFILE="data/logfile.dat";
+    const std::string library::DefaultFile="defaultfile.dat";
+    const std::string library::LOGFILE="logfile.dat";
 
     //-----load all the book info------//
-    // void library::update(std::string const&file) noexcept{
-    //     fstream data;
-    //     data.open(file,ios::out | ios::app);
-    //     data.close();
-    //     data.open(file, ios::in);
-    //     if(data.fail()){
-    //         cout << "fail to find the book data!";
-    //         log(Message(getTime(),"System","launches erroneously"));
-    //         exit(1);
-    //     }
-    //     string str;
-    //     getline(data,str);
-    //     data >> str;
-    //     int number = atoi(str.c_str());
-    //     for(int i = 0 ; i < number ; i++){
-    //         int temp,count;
-    //         string name,isbn,author,press,cate;
-    //         data >>temp >>name >> isbn>>author >> press >> count >>cate;
-    //         Category n_cate = StringToCategory(cate);
-    //         Book mybook(name,isbn,author,press,count,n_cate);
-    //         BooksMap.insert(make_pair(isbn,mybook));
-    //         NameToISBN.insert(make_pair(name,isbn));
-    //     }
-    //     data.close();
-    // }
-    // void library::save(std::string const&file){
-    //     fstream data;
-    //     data.open(file, ios::out|ios::ate);
-    //     if(data.fail()){
-    //         cout <<"fail to open the saving target!";
-    //         exit(1);
-    //     }
-    //     data << "序号	书名	ISBN	作者	出版社	数量	分类\n";
-    //     data << BooksMap.size() << endl;
-    //     auto it = BooksMap.begin();
-    //     for(int i = 1 ; i <= BooksMap.size() ;i++)
-    //     {
-    //         Book *temp;
-    //         temp = &(it->second);
-    //         data << i << "\t"<<temp->name <<"\t"<< temp->isbn <<"\t"<< temp->author <<"\t"<< temp-> press <<"\t" <<temp->count <<"\t"<< CategoryToString(temp->cate) << endl;
-    //         it++;
-    //     }
-    //     data.close();
-    // }
+    void library::update(std::string const&file) noexcept{
+        fstream data;
+        data.open(file,ios::out | ios::app);
+        data.close();
+        data.open(file, ios::in);
+        if(data.fail()){
+            cout << "fail to find the book data!";
+            log(Message(getTime(),"System","launches erroneously"));
+            exit(1);
+        }
+        string str;
+        getline(data,str);
+        data >> str;
+        int number = atoi(str.c_str());
+        for(int i = 0 ; i < number ; i++){
+            int temp,count;
+            string name,isbn,author,press,cate;
+            data >>temp >>name >> isbn>>author >> press >> count >>cate;
+            Category n_cate = StringToCategory(cate);
+            Book mybook(name,isbn,author,press,count,n_cate);
+            BooksMap.insert(make_pair(isbn,mybook));
+            NameToISBN.insert(make_pair(name,isbn));
+        }
+        data.close();
+    }
+    void library::save(std::string const&file){
+        fstream data;
+        data.open(file, ios::out|ios::ate);
+        if(data.fail()){
+            cout <<"fail to open the saving target!";
+            exit(1);
+        }
+        data << "序号	书名	ISBN	作者	出版社	数量	分类\n";
+        data << BooksMap.size() << endl;
+        auto it = BooksMap.begin();
+        for(int i = 1 ; i <= BooksMap.size() ;i++)
+        {
+            Book *temp;
+            temp = &(it->second);
+            data << i << "\t"<<temp->name <<"\t"<< temp->isbn <<"\t"<< temp->author <<"\t"<< temp-> press <<"\t" <<temp->count <<"\t"<< CategoryToString(temp->cate) << endl;
+            it++;
+        }
+        data.close();
+    }
     void library::log(Message const&meg)noexcept{
         std::ofstream ofs(library::LOGFILE,std::ios::app);
         if(ofs){
@@ -78,11 +78,7 @@ namespace LibSys{
         DestFile=NewFile;
         return old_file;
         }
-    std::string library::SetLogFile(std::string const&NewFile)noexcept{
-        string old_file=library::LOGFILE;
-        library::LOGFILE=NewFile;
-        return old_file;
-        }
+
     bool library::borrow(Reader const&m,std::string const&seg)noexcept{
             try{
                 BooksMap.at(seg);
@@ -129,51 +125,49 @@ namespace LibSys{
     }
     bool library::search(string const&seg,field f)noexcept{
         bool found=false;
-        std::regex regex(".*"+seg+".*",std::regex::nosubs);
         switch(f){
             case ISBN:
                 try{
                     BooksMap.at(seg);
-                    std::cout<<"Book: found remains "<<BooksMap[seg].count<<std::endl;
                     return true;
                 }catch(std::out_of_range&){
                     return false;
                 }
             case NAME:
-                for(auto&&it:NameToISBN){
-                    if(std::regex_match(it.first,regex)){
-                        std::cout<<"Book: "<<it.first<<std::ends;
-                        found=true;
-                        std::cout<<"\tISBN: "<<it.second<<std::endl;
+                std::cout<<"Book: "<<seg<<std::ends;
+                    for(auto&&it:NameToISBN){
+                        if(it.first==seg){
+                            found=true;
+                            std::cout<<"\tISBN: "<<it.second<<std::endl;
+                        }
                     }
-                }
                 return found;
             case AUTHOR:
+                std::cout<<"Author: "<<seg<<std::ends;
                 for(auto&&it:BooksMap){
-                    if(std::regex_match(it.second.author,regex)){
-                        std::cout<<"Author: "<<it.second.author<<std::ends;
+                    if(it.second.author==seg)
                         std::cout<<"\tBook: "<<it.second.name
                             <<"\tISBN: "<<it.second.isbn<<std::endl;
                         found=true;
-                    }
                 }
                 return found;
             case PRESS:
+                std::cout<<"Press: "<<seg<<std::ends;
                 for(auto&&it:BooksMap){
-                    if(std::regex_match(it.second.press,regex)){
-                        std::cout<<"Press: "<<seg<<std::ends;
+                    if(it.second.press==seg)
                         std::cout<<"\tBook: "<<it.second.name
                             <<"\tISBN: "<<it.second.isbn<<std::endl;
                         found=true;
-                    }
                 }
                 return found;
             default:
+            std::regex regex(".*"+seg+".*",std::regex::nosubs);
             for(auto&&it:BooksMap){
                 if(std::regex_match(it.second.toString(),regex)){
                     std::cout<<it.second<<std::endl;
                 }
             }
+            //use regex to search
             return false;
             }
         }

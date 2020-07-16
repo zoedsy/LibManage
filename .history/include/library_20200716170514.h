@@ -1,5 +1,5 @@
 #ifndef _LIBRARY_H_
-#define _LIBRARY_H_ 1
+#define _LIBRARY_H_ 
 #include"trace.h"
 #include"person.h"
 #include<iosfwd>
@@ -123,7 +123,7 @@ namespace LibSys{
     */
     class library{
         private:
-            static library* lib;
+            library* lib;
             trace                                               borrow_trace;
             std::unordered_multimap<std::string,std::string>    NameToISBN;
             std::string                                         DestFile;
@@ -134,7 +134,7 @@ namespace LibSys{
             /**
              * @brief set log file which can't be changed by anyone
             */
-            static std::string LOGFILE;
+            static const std::string LOGFILE;
             void log(Message const&m)noexcept;
             library()noexcept{update();}
         public:
@@ -144,7 +144,7 @@ namespace LibSys{
              * @brief default constructor 
              * using the default file to fetch data
             */
-            static library* getLibrary();
+           
             ~library()noexcept{};
             /**
              * @brief assign the file to reload
@@ -157,7 +157,6 @@ namespace LibSys{
              * @return return current file set for storage
             */
             std::string setDestFile(std::string const&)noexcept;
-            std::string SetLogFile(std::string const&)noexcept;
             /**
              * @brief save data to specific file
             */
