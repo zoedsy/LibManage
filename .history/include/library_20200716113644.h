@@ -1,5 +1,5 @@
 #ifndef _LIBRARY_H_
-#define _LIBRARY_H_ 
+#define _LIBRARY_H_ 1
 #include"trace.h"
 #include"person.h"
 #include<iosfwd>
@@ -19,83 +19,24 @@ namespace LibSys{
             Category cate=Category::SUNDRIES;
             std::string isbn;
         public:
-/*==============================================================================
-|函 数 名|:book的赋值运算符重载
-|功能描述|:将所有book内容传递给等号左侧
-|输入参数|:Book const&
-|输出参数|:Book&
-|返 回 值|:得到的book的引用
-|创建日期|:2020年7月14日
-|修改日期|:2020年7月14日
-|作    者|:刘沛东
-========================================================================================*/
             Book& operator=(Book const&)noexcept;
             friend class library;
             Book()=default;
-/*==============================================================================
-|函 数 名|:Book的构造函数
-|功能描述|:将书名、isbn，作者，出版社，数量，分类传递给构造的book对象
-|输入参数|:书名、isbn，作者，出版社，数量，分类
-|输出参数|:无
-|返 回 值|:无
-|创建日期|:2020年7月14日
-|修改日期|:2020年7月14日
-|作    者|:刘沛东
-========================================================================================*/       
             Book(std::string const&n,std::string const&isbn,std::string const&at,std::string const&pr,int const&c,Category cg);
             // Book(Book const&)noexcept=default;
             /**
              * @brief remember to delete the pointer [count]
             */
             ~Book()noexcept=default;
-/*==============================================================================
-|函 数 名|:Book的 = 关系运算符
-|功能描述|:只根据isbn判断两本书是否为同一本
-|输入参数|:Book对象
-|输出参数|:bool
-|返 回 值|:1为等于，0为不等于
-|创建日期|:2020年7月14日
-|修改日期|:2020年7月14日
-|作    者|:刘沛东
-========================================================================================*/     
             bool operator==(Book const&b)const noexcept{return isbn==b.isbn;}
-/*==============================================================================
-|函 数 名|:info
-|功能描述|:将书本的所有信息推到 输出流中
-|输入参数|:ostream&
-|输出参数|:ostream&
-|返 回 值|:ostream&
-|创建日期|:2020年7月14日
-|修改日期|:2020年7月14日
-|作    者|:刘沛东
-========================================================================================*/ 
             std::ostream& info(std::ostream&)const noexcept;
-
-/*==============================================================================
-|函 数 名|:Book内容访问函数
-|功能描述|:返回对应的私有成员内容
-|输入参数|:无
-|输出参数|:string（数量内容为int）
-|返 回 值|:对应变量
-|创建日期|:2020年7月14日
-|修改日期|:2020年7月14日
-|作    者|:刘沛东
-========================================================================================*/   
-            //返回书名
             inline const std::string GetName()const noexcept{return name;}
-            //返回出版社
             inline const std::string GetPress()const noexcept{return press;}
-            //返回作者
             inline const std::string GetAuthor()const noexcept{return author;}
-            //返回ISBN
             inline const std::string GetIsbn()const noexcept{return isbn;}
-            //返回书籍剩余数量          
             inline const int GetCount()const noexcept{return count;}
-            //更改书名
             inline void ChangeName(std::string const&n)noexcept{name=n;}
-            //借书
             inline bool borrow()noexcept{return --count==0;}
-            //还书
             inline void ret()noexcept{++count;}
             std::string toString()const noexcept;
             /**
@@ -105,11 +46,8 @@ namespace LibSys{
             Book& merge(Book &)noexcept;
             friend std::ostream& operator<<(std::ostream&,Book const&);
     };
-    //字符串到category的转化，注意小写！
     Category StringToCategory(std::string const&str);
-    //category到字符串的转化，注意小写！
     std::string CategoryToString(Category cate);
-    //创建一个事件，返回string
     std::string ActionCreator(const char*__act,const char*__bn,const char*__isbn);
     class Message final{
         std::string time,person,action;
@@ -123,7 +61,7 @@ namespace LibSys{
     */
     class library{
         private:
-
+            std::unordered_map<std::string,Book>                BooksMap;
             trace                                               borrow_trace;
             std::unordered_multimap<std::string,std::string>    NameToISBN;
             std::string                                         DestFile;
@@ -137,14 +75,13 @@ namespace LibSys{
             static const std::string LOGFILE;
             void log(Message const&m)noexcept;
         public:
-            std::unordered_map<std::string,Book>                BooksMap;
             const static std::string DefaultFile;//default file set
             /**
              * @brief default constructor 
              * using the default file to fetch data
             */
             library()noexcept{update();}
-            ~library()noexcept{};
+            ~library()noexcept;
             /**
              * @brief assign the file to reload
              * @param file the assigned file
