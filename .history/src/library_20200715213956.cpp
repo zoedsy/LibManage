@@ -18,50 +18,6 @@ namespace LibSys{
     const std::string library::DefaultFile="defaultfile.dat";
     const std::string library::LOGFILE="logfile.dat";
 
-    //-----load all the book info------//
-    void library::update(std::string const&file) noexcept{
-        fstream data;
-        data.open("../data/" + file,ios::out | ios::app);
-        data.close();
-        data.open("../data/" + file, ios::in);
-        if(data.fail()){
-            cout << "fail to find the book data!";
-            exit(1);
-        }
-        string str;
-        getline(cin,str);
-        data>> str;
-        int number = atoi(str.c_str());
-        for(int i = 0 ; i < number ; i++){
-            int temp,count;
-            string name,isbn,author,press,cate;
-            data >>temp >>name >> isbn>>author >> press >> count >>cate;
-            Category n_cate = StringToCategory(cate);
-            Book mybook(name,isbn,author,press,count,n_cate);
-            BooksMap.insert(make_pair(isbn,mybook));
-            NameToISBN.insert(make_pair(name,isbn));
-        }
-        data.close();
-    }
-    void library::save(std::string const&file){
-        fstream data;
-        data.open("../data/" + file, ios::out|ios::ate);
-        if(data.fail()){
-            cout <<"fail to open the saving target!";
-            exit(1);
-        }
-        data << "���\t����\tISBN\t����\t������\t����\t����\n";
-        data << BooksMap.size() << endl;
-        auto it = BooksMap.begin();
-        for(int i = 1 ; i <= BooksMap.size() ;i++)
-        {
-            Book *temp;
-            temp = &(it->second);
-            data << i << "\t"<<temp->name <<"\t"<< temp->isbn <<"\t"<< temp->author <<"\t"<< temp-> press <<"\t" <<temp->count <<"\t"<< CategoryToString(temp->cate) << endl;
-            it++;
-        }
-        data.close();
-    }
     void library::log(Message const&meg)noexcept{
         std::ofstream ofs(library::LOGFILE,std::ios::app);
         if(ofs){
@@ -122,7 +78,6 @@ namespace LibSys{
         }
     }
     bool library::search(string const&seg,field f)noexcept{
-        bool found=false;
         switch(f){
             case ISBN:
                 try{
@@ -132,6 +87,7 @@ namespace LibSys{
                     return false;
                 }
             case NAME:
+                bool found=false;
                 std::cout<<"Book: "<<seg<<std::ends;
                     for(auto&&it:NameToISBN){
                         if(it.first==seg){
@@ -141,6 +97,7 @@ namespace LibSys{
                     }
                 return found;
             case AUTHOR:
+                bool found=false;
                 std::cout<<"Author: "<<seg<<std::ends;
                 for(auto&&it:BooksMap){
                     if(it.second.author==seg)
@@ -150,6 +107,7 @@ namespace LibSys{
                 }
                 return found;
             case PRESS:
+                bool found=false;
                 std::cout<<"Press: "<<seg<<std::ends;
                 for(auto&&it:BooksMap){
                     if(it.second.press==seg)
@@ -160,7 +118,7 @@ namespace LibSys{
                 return found;
             default:
             //use regex to search
-            return false;
+                break;
             }
         }
     void library::buy(Admin const&ad,Book &book)noexcept{
@@ -179,10 +137,8 @@ namespace LibSys{
             BooksMap[_isbn].ChangeName(new_name);
             log(Message(getTime(),Ad.GetAccount(),
                         ActionCreator("change book: ",_isbn.c_str(),(" to "+new_name).c_str())));
-            return true;
         }catch(std::out_of_range&){
             std::cerr<<"Book Not Exists!"<<std::endl;
-            return false;
         }
     }
     void library::discard(Admin const&Ad,Book const&book)noexcept{
@@ -222,21 +178,5 @@ namespace LibSys{
         auto&&temp=borrow_trace.remove_ID(Ind);
         log(Message(getTime(),temp.name,
             ActionCreator("return",ISBNToName(temp.isbn).c_str(),temp.isbn.c_str())));
-    }
-    void library::personalBorrowTrace(Reader const&reader)noexcept{
-        auto&&trace = borrow_trace.search_people(reader.GetAccount());
-        if(trace.empty()){
-            std::cout<<"none"<<std::endl;
-        }else{
-            auto ISBNToName=[&](std::string const&isbn)->std::string{
-                for(auto&&it:NameToISBN){
-                    if(it.second==isbn)
-                        return it.first;
-                }return "";
-            };
-            for(auto&&it:trace){
-                std::cout<<ISBNToName(it)<<'\t'<<it<<std::endl;
-            }
-        }
     }
 }

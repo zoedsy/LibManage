@@ -1,17 +1,12 @@
 #pragma once
 #include"log.h"
+#include"library.h"
 #include<map>
-
-//forward declaration
-namespace LibSys{
-    class library;
-}
-
 class Person{
     public:
-        static logs* ls;
+        static Logs* ls;
         static LibSys::library*lib;
-        
+
 };
 
 class Visitor:public Person{
@@ -60,8 +55,5 @@ class Admin:public Person{
         void apply13();
         void apply14();
         void apply15();
-         
-         
-        
 };
 

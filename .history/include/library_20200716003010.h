@@ -96,7 +96,7 @@ namespace LibSys{
             /**
              * @brief save data to specific file
             */
-            void save(std::string const&file=DefaultFile);
+            void save(std::string const&file="");
             enum field{ISBN,NAME,AUTHOR,PRESS,BLUR};
             /**
              * @brief search book by bookname or else
@@ -111,7 +111,7 @@ namespace LibSys{
             */
             bool ret(Reader const&,Book const&)noexcept;
             bool ret(Reader const&,std::string const&_isbn)noexcept;
-            bool changeBookName(Admin const&,std::string const&_isbn,field,std::string const&_newName);
+            bool changeBookName(Admin const&,std::string const&_isbn,std::string const&_newName);
             /**
              * @brief purchase a bunch of books
             */
@@ -130,24 +130,9 @@ namespace LibSys{
              * @param Details list all info about this book if Details is true
             */
             void list(bool Details=0)const noexcept;
-            /**
-             * @brief list all infomation of borrow_trace though lots of lines
-             * for admin
-            */
             void listBorrowTrace()const noexcept;
-            /**
-             * @brief return the book by pointing the specific line of the showed info via listBorrowTrace
-            */
-            void retListIndex(unsigned)noexcept;
-            /**
-             * @brief return all books of the Reader
-            */
             void retAllBook(Reader const&)noexcept;
-            /**
-             * @brief output the personal borrow trace
-             * output null if none
-            */
-           void personalBorrowTrace(Reader const&reader)noexcept;
+            void retListIndex(unsigned)noexcept;
     };
 }
 #endif//_LIBRARY_H_
