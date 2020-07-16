@@ -15,6 +15,7 @@ std::string trace::erase(tip const&object)noexcept
 
 void trace::show_all()const
 {
+    std::list<trace::tip>::iterator it = book_trace.begin();
     std::cout << "序号\tISBN\t书名\t借出时间\n";
     int size = book_trace.size();
     if (size != 0)
@@ -34,6 +35,7 @@ void trace::show_all()const
 }
 std::list<std::string> trace::search_people(std::string name)
 {
+    std::list<trace::tip>::iterator it = book_trace.begin();
     std::list<std::string> ISBNs;
     std::cout << "正在按姓名查找记录：" << std::endl;
     int size = book_trace.size();
@@ -57,6 +59,7 @@ std::list<std::string> trace::search_people(std::string name)
 }
 std::string trace::remove_people(std::string name)
 {
+    std::list<trace::tip>::iterator it = book_trace.begin();
     std::cout << "正在按姓名移除借阅记录：" << std::endl;
     int size = book_trace.size();
     if (size == 0)
@@ -89,6 +92,7 @@ std::string trace::remove_people(std::string name)
 }
 trace::tip trace::remove_ID(int n)
 {
+    std::list<trace::tip>::iterator it = book_trace.begin();
     std::cout << "正在按序号移除记录:" << std::endl;
     int size = book_trace.size();
     if (size == 0)
