@@ -39,7 +39,7 @@ namespace LibSys{
         else if(str=="sundries")return Category::SUNDRIES;
         return Category::SUNDRIES;
     }
-    //friend function of Book
+    //----friend function of Book----//
     std::ostream& operator<<(std::ostream&os,Book const&book){
         return book.info(os);
     }
