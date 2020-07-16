@@ -194,6 +194,7 @@ namespace LibSys{
         }
         log(Message(getTime(),ad.GetAccount(),
                         ActionCreator("buy/add",book.GetName(),book.isbn)));
+        save();
     }
     bool library::changeBookName(Admin const&Ad,std::string const&_isbn,std::string const&new_name){
         try{
@@ -245,7 +246,7 @@ namespace LibSys{
             }return "";
         };
         auto&&temp=borrow_trace.remove_ID(Ind);
-        log(Message(getTime(),temp.name,
+        log(Message(getTime(),temp.account,
             ActionCreator("return",ISBNToName(temp.isbn),temp.isbn)));
     }
     void library::personalBorrowTrace(Reader const&reader)noexcept{
