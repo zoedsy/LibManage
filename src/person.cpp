@@ -3,7 +3,7 @@
 #include"../include/library.h"
 
 // logs = new Logs();
-//å…·ä½“åŠŸèƒ½ç­‰å¾…å®Œå–„
+//¾ßÌå¹¦ÄÜµÈ´ıÍêÉÆ
 using LibSys::library;
 
 Logs* Person::ls = new Logs();
@@ -72,7 +72,7 @@ void Admin::apply12(){
     cin>>newname;
     lib->changeBookName(*this,_isbn,newname);
     cout<<"successfully change book name!"<<endl;
-    //è¿”å›åŠŸèƒ½é¡µ
+    //·µ»Ø¹¦ÄÜÖ÷Ò³
     system("pause");
     apply1();
     
@@ -251,7 +251,7 @@ void Visitor::apply32(){
 
 
 
-void Admin::apply1()   //ç®¡ç†å‘˜åŠŸèƒ½
+void Admin::apply1()   //¹ÜÀíÔ±¹¦ÄÜÖ÷Ò³
 {
     while(1){
         int i;
@@ -266,26 +266,26 @@ void Admin::apply1()   //ç®¡ç†å‘˜åŠŸèƒ½
         cout<<"please input the choice:(1-6):";
 
         cin>>i;
-        system("cls");//æ˜¯cè¿™æ ·å†™å—
+        system("cls");
         switch(i){
             case 1:
-                //å½•å…¥ä¿¡æ¯çš„æ¥å£
+                 //Â¼ÈëĞÅÏ¢µÄ½Ó¿Ú
                 apply11();
                 break;
             case 2:
-                //æ•°æ®ä¿®æ”¹æ¥å£
+                //Êı¾İĞŞ¸Ä½Ó¿Ú
                 apply12();
                 break;
             case 3:
-                //æ•°æ®æ’å…¥æ¥å£
+                //Êı¾İ²åÈë½Ó¿Ú
                 apply13();
                 break;
             case 4:
-                //æ•°æ®åˆ é™¤æ¥å£
+                 //Êı¾İÉ¾³ı½Ó¿Ú
                 apply14();
                 break;
             case 5:
-                //å€Ÿé˜…ä¿¡æ¯æŸ¥çœ‹æ¥å£
+                //½èÔÄĞÅÏ¢²é¿´½Ó¿Ú
                 apply15();
                 break;
             case 6:
@@ -301,7 +301,7 @@ void Admin::apply1()   //ç®¡ç†å‘˜åŠŸèƒ½
 	    system("pause");
     }
 }
-void Reader::apply2()   //è¯»è€…åŠŸèƒ½
+void Reader::apply2()   //¶ÁÕß¹¦ÄÜ
 {
     while(1){
         int i;
@@ -314,7 +314,7 @@ void Reader::apply2()   //è¯»è€…åŠŸèƒ½
         cout<<"6.back to last page"<<endl;
         cout<<"please input the choice:(1-6)";
         cin>>i;
-        system("cls");//æ˜¯cè¿™æ ·å†™å—
+        system("cls");
         switch(i){
             case 1:
             
@@ -351,7 +351,7 @@ void Reader::apply2()   //è¯»è€…åŠŸèƒ½
 	
 }
 void Visitor::apply3()
-{   //æ¸¸å®¢åŠŸèƒ½
+{   //ÓÎ¿Í¹¦ÄÜ
     while(1){
         int i;
         cout<<"-----Visitor-----"<<endl;
