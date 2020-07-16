@@ -17,7 +17,6 @@ public:
     };
 private:
     mutable std::list<tip> book_trace;
-    mutable std::list<trace::tip>::iterator it = book_trace.begin();
 
 public:
     trace() = default;
