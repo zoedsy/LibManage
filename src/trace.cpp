@@ -72,7 +72,7 @@ std::string trace::remove_people(std::string name)
             if (it->name == name)
             {
                 size--;
-                std::cout << "该借书记录已被移除：" << std::endl;
+                std::cout << "该借书记录已被移除！" << std::endl;
                 std::cout << i << "\t" << it->isbn << it->name << it->lend_time << std::endl;
                 std::string temp = it->lend_time;
                 book_trace.erase(it);
