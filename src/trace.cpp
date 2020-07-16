@@ -17,6 +17,7 @@ void trace::show_all()const
 {
     std::cout << "序号\tISBN\t书名\t借出时间\n";
     int size = book_trace.size();
+    it=book_trace.begin();
     if (size != 0)
     {
         for (int i = 1; i <= size; i++)
@@ -37,6 +38,7 @@ std::list<std::string> trace::search_people(std::string name)
     std::list<std::string> ISBNs;
     std::cout << "正在按姓名查找记录：" << std::endl;
     int size = book_trace.size();
+    it=book_trace.begin();
     if (size != 0)
     {
         for (int i = 1; i <= size; i++)
@@ -59,6 +61,7 @@ std::string trace::remove_people(std::string name)
 {
     std::cout << "正在按姓名移除借阅记录：" << std::endl;
     int size = book_trace.size();
+    it=book_trace.begin();
     if (size == 0)
     {
         std::cout << "没有借阅记录，无法删除！";
@@ -91,6 +94,7 @@ trace::tip trace::remove_ID(int n)
 {
     std::cout << "正在按序号移除记录:" << std::endl;
     int size = book_trace.size();
+    it=book_trace.begin();
     if (size == 0)
     {
         std::cout << "没有借阅记录，无法移除！";

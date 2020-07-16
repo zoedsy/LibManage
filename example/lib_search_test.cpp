@@ -13,6 +13,7 @@ void library::save(const std::string &){
 
 }
 void lib_search_test(library &lib,Admin&);
+void lib_borrow_test(library &lib,Reader const&);
 /**
  * @brief library test
  * @local .../example
@@ -27,15 +28,25 @@ int main(){
     Book b3("汇编语言（第三版）","978-7-302-33314-2","王爽","清华大学出版社",1,Category::PRIMER);
     Book b4("算法竞赛从入门到进阶","978-7-302-52","罗永军、郭卫斌","清华大学出版社",12,Category::PRIMER);
     
+    lib.SetLogFile("logfile.dat");
     lib.buy(admin,b);
     lib.buy(admin,b2);
     lib.buy(admin,b3);
     lib.buy(admin,b4);
-    lib.SetLogFile("logfile.dat");
-    lib_search_test(lib,admin);
-
+    // lib_search_test(lib,admin);
+    lib_borrow_test(lib,Reader());
     system("pause");
     return 0;
+}
+void lib_borrow_test(library &lib,Reader const&r){
+    lib.list();
+    lib.list(1);
+    Book b("算法竞赛从入门到进阶","978-7-302-52","罗永军、郭卫斌","清华大学出版社",1,Category::PRIMER);
+    if(lib.borrow(r,"978-7-302-52"))std::cout<<"B"<<std::endl;
+    else std::cout<<"N"<<std::endl;
+    lib.borrow(r,"978-7-302-52");
+    lib.listBorrowTrace();
+    // lib.retListIndex(1);
 }
 void lib_search_test(library &lib,Admin& admin){
     Book b5("算法竞赛从入门到进阶","978-7-302-52","罗永军、郭卫斌","清华大学出版社",30,Category::PRIMER);

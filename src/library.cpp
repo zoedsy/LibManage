@@ -69,7 +69,7 @@ namespace LibSys{
         if(ofs){
             ofs<<meg()<<endl;
         }else 
-            std::cerr<<"log error! Please reset log file!"<<std::endl;
+            std::cerr<<library::LOGFILE<<"log error! Please reset log file!"<<std::endl;
         ofs.close();
         }
 
@@ -79,6 +79,7 @@ namespace LibSys{
         return old_file;
         }
     std::string library::SetLogFile(std::string const&NewFile)noexcept{
+        std::cout<<"log change"<<std::endl;
         string old_file=library::LOGFILE;
         library::LOGFILE=NewFile;
         return old_file;
@@ -119,11 +120,11 @@ namespace LibSys{
     void library::list(bool Det)const noexcept{
         if(Det){
             for(auto&&it:BooksMap){
-                std::cout<<it.first<<" "<<it.second<<std::endl;
+                std::cout<<it.second<<std::endl;
             }
         }else{
             for(auto&&it:BooksMap){
-                std::cout<<it.first<<" "<<it.second.isbn<<std::endl;
+                std::cout<<it.second.name<<" "<<it.first<<std::endl;
             }
         }
     }
