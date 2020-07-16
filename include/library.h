@@ -109,23 +109,40 @@ namespace LibSys{
     Category StringToCategory(std::string const&str);
     //category到字符串的转化，注意小写！
     std::string CategoryToString(Category cate);
-    //创建一个事件，返回string
-    std::string ActionCreator(const char*__act,const char*__bn,const char*__isbn);
+    /**
+     * @brief 日志相关函数 方便创建事件/行为
+     * @return 返回一个 事件/行为 的字符串
+     * @author 刘沛东
+    */
+    std::string ActionCreator(std::string const&__act,std::string const&__bn,std::string const&__isbn);
+    /**
+     * @brief 日志直接关联类 产生一条日志消息
+    */
     class Message final{
         std::string time,person,action;
         public:
         Message(std::string const&t,std::string const&p,std::string const&a)noexcept
             :time(t),person(p),action(a){}
+        /**
+         * @brief 重载函数调用运算符来产生日志信息
+         * @return 日志信息
+         * @date 2020/7/15
+         * @author 刘沛东
+        */
         std::string operator()()const noexcept;
     };
     /**
-     * @brief remember to log every action
+     * @brief partial core class of this system
+     * 提供图书馆方面相关的所有功能
+     * @date 2020/7/15
+     * @author 刘沛东
     */
     class library{
         private:
             static library* lib;
             trace                                               borrow_trace;
             std::unordered_multimap<std::string,std::string>    NameToISBN;
+            std::unordered_map<std::string,Book>                BooksMap;
             std::string                                         DestFile;
             /**
              * @brief fetch the data from file
@@ -138,7 +155,7 @@ namespace LibSys{
             void log(Message const&m)noexcept;
             library()noexcept{update();}
         public:
-            std::unordered_map<std::string,Book>                BooksMap;
+            //------don't output info to screen func--------//
             const static std::string DefaultFile;//default file set
             /**
              * @brief default constructor 
@@ -157,36 +174,57 @@ namespace LibSys{
              * @return return current file set for storage
             */
             std::string setDestFile(std::string const&)noexcept;
+            /**
+             * @brief set the log file for debug or run in a diff env
+             * if not set, use the default file to record logs
+             * @return return current file set for log
+            */
             std::string SetLogFile(std::string const&)noexcept;
             /**
              * @brief save data to specific file
             */
             void save(std::string const&file=DefaultFile);
             enum field{ISBN,NAME,AUTHOR,PRESS,BLUR};
-            /**
-             * @brief search book by bookname or else
-            */
-            bool borrow(Reader const&,std::string const&_isbn)noexcept;
-            /**
-             * @brief search book with complete info
-            */
-            bool borrow(Reader const&,Book const&)noexcept;
-            /**
-             * @brief return book
-            */
-            bool ret(Reader const&,Book const&)noexcept;
-            bool ret(Reader const&,std::string const&_isbn)noexcept;
-            bool changeBookName(Admin const&,std::string const&_isbn,std::string const&_newName);
+            
             /**
              * @brief purchase a bunch of books
             */
             void buy(Admin const&,Book &)noexcept;
+            
+            //----------output info to screen func--------//
+            
+            
+            
+            /**
+             * @brief borrow book by isbn
+            */
+            bool borrow(Reader const&,std::string const&_isbn)noexcept;
+            /**
+             * @brief borrow book with complete info
+            */
+            bool borrow(Reader const&,Book const&)noexcept;
+            /**
+             * @brief return book by passing all info
+             * @return return true if succeed
+            */
+            bool ret(Reader const&,Book const&)noexcept;
+            /**
+             * @brief return book by passing the isbn
+             * @return return true if succeed
+            */
+            bool ret(Reader const&,std::string const&_isbn)noexcept;
+            /**
+             * @brief change book name using the specific isbn by administrator
+             * @return whether the isbn exists or not
+            */
+            bool changeBookName(Admin const&,std::string const&_isbn,std::string const&_newName);
             /**
              * @brief discard a bunch of books
             */
             void discard(Admin const&,Book const&)noexcept;
             /**
              * @brief search book by field
+             * @return return true if exists
             */
             bool search(std::string const&seg,field f=field::NAME)noexcept;
             /**
