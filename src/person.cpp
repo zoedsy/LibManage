@@ -13,6 +13,25 @@
 //具体功能等待完善
 using LibSys::library;
 
+/*
+|函 数 名|:apply10
+|功能描述|:管理员登陆后显示所有书籍
+|输入参数|:无
+|输出参数|:无
+|返 回 值|:无
+|创建日期|:2020年7月14日
+|修改日期|:2020年7月16日
+|作    者|：马晓晨
+========================================================================================*/ 
+void Admin::apply10(){
+    //显示所有内容
+    LibSys::library* lib1= LibSys::library::getLibrary();
+    system("cls");
+    lib1->list(1);
+    system("pause");
+    //back admin function menu
+    apply1();    
+}
 // Logs* Person::ls = new Logs();
 // library* Person::lib = new library();
 /*==============================================================================
@@ -164,6 +183,26 @@ void Admin::apply15(){
     lib1->listBorrowTrace();
     system("pause");
     apply1();
+}
+
+/*
+|函 数 名|:apply10
+|功能描述|:管理员登陆后显示所有书籍
+|输入参数|:无
+|输出参数|:无
+|返 回 值|:无
+|创建日期|:2020年7月14日
+|修改日期|:2020年7月16日
+|作    者|：马晓晨
+========================================================================================*/ 
+void Reader::apply20(){
+    //显示所有内容
+    LibSys::library* lib1= LibSys::library::getLibrary();
+    system("cls");
+    lib1->list(1);
+    system("pause");
+    //back admin function menu
+    apply2();
 }
 
 /*==============================================================================
@@ -387,17 +426,23 @@ void Admin::apply1()
         int i;
         system("cls");
         cout<<"----管理员界面----"<<endl;
+        cout<<"0.显示所有书籍" <<endl;
         cout<<"1.书籍查询"<<endl;
         cout<<"2.书籍修改"<<endl;
         cout<<"3.书籍信息增加"<<endl;
         cout<<"4.书籍信息删除"<<endl;
         cout<<"5.查看用户借阅记录"<<endl;
         cout<<"6.返回上一页"<<endl;
-        cout<<"请输入您要使用的功能选项（1-6）:";
+        cout<<"请输入您要使用的功能选项（0-6）:";
 
         cin>>i;
         system("cls");
         switch(i){
+
+            case 0:
+                //显示所有书籍的接口
+                apply10();
+                break;
             case 1:
                  //录入信息的接口
                 apply11();
@@ -447,13 +492,14 @@ void Reader::apply2()   //读者功能
         int i;
         system("cls");
         cout<<"-----读者界面-----"<<endl;
+        cout<<"0.显示所有书籍" <<endl;
         cout<<"1.书籍查询"<<endl;
         cout<<"2.书籍借阅"<<endl;
         cout<<"3.书籍归还"<<endl;
         // cout<<"4.modify personal informatin"<<endl;
         cout<<"4.查看个人借阅日志"<<endl;
         cout<<"5.返回上一页"<<endl;
-        cout<<"请输入您要使用的功能选项（1-5）：";
+        cout<<"请输入您要使用的功能选项（0-5）：";
         cin>>i;
         system("cls");
         switch(i){
