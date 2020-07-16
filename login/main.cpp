@@ -21,7 +21,7 @@ int main()
 };
 
 void firstPage(){
-
+    system("cls");
 	cout << " ------小川图书管理系统------" << endl;
 	cout << "       1.管理员                  " << endl;
 	cout << "       2.读者                    " << endl;

@@ -1,7 +1,7 @@
 /*
  * @Author: DuShiyi
  * @Date: 2020-07-15 17:56:32
- * @LastEditTime: 2020-07-16 17:22:20
+ * @LastEditTime: 2020-07-16 19:16:28
  * @LastEditors: Please set LastEditors
  * @Description: about person(admin ,visitor,reader)
  * @FilePath: \LibManage\src\person.cpp
@@ -31,10 +31,10 @@ void Admin::apply11(){
     string s1;
     char c;
     system("cls");
-    cout<<"how do you want to search the"
-    <<"book(N(NAME),I(ISBN),A(AUTHOR),P(PRESS)):"<<endl;
+    cout<<"您希望通过哪种方式来搜索书籍，"<<endl;
+    cout<<"书名请输入‘N’,ISBN请输入‘I’,作者名请输入‘A’,出版社名请输入‘P’:";
     cin>>c;
-    cout<<"input the keyword:"<<endl;
+    cout<<"请输入其关键词:";
     cin>>s1;
     
     switch(c){
@@ -44,28 +44,28 @@ void Admin::apply11(){
               
 
             }else{
-                cout<<"can not find the book"<<endl;
+                cout<<"未找到相应书籍"<<endl;
             }
             break;
         case 'I':
             if(lib1->search(s1,LibSys::library::field::ISBN)){
             
             }else{
-                cout<<"can not find the book"<<endl;
+                cout<<"未找到相应书籍"<<endl;
             }
             break;
         case 'A':
              if(lib1->search(s1,LibSys::library::field::AUTHOR)){
                 
             }else{
-                cout<<"can not find the book"<<endl;
+                cout<<"未找到相应书籍"<<endl;
             }
             break;
         case 'P':
             if(lib1->search(s1,LibSys::library::field::PRESS)){
                
             }else{
-                cout<<"can not find the book"<<endl;
+                cout<<"未找到相应书籍"<<endl;
             }
             break;
 
@@ -89,7 +89,7 @@ void Admin::apply12(){
     LibSys::library* lib1= LibSys::library::getLibrary();
     string _isbn;
     string newname;
-    cout<<"the isbn of the book whose name you wanna change:";
+    cout<<"";
     cin>>_isbn;
     cout<<"change the name for the book(new name):";
     cin>>newname;
@@ -182,10 +182,10 @@ void Reader::apply21(){
     string s1;
     char c;
     system("cls");
-    cout<<"how do you want to search the"
-    <<"book(N(NAME),I(ISBN),A(AUTHOR),P(PRESS)):"<<endl;
+    cout<<"您希望通过哪种方式来搜索书籍，"<<endl;
+    cout<<"书名请输入‘N’,ISBN请输入‘I’,作者名请输入‘A’,出版社名请输入‘P’:";
     cin>>c;
-    cout<<"input the keyword:"<<endl;
+    cout<<"请输入其关键词:";
     cin>>s1;
     
     switch(c){
@@ -240,6 +240,7 @@ void Reader::apply22(){
     LibSys::library* lib1= LibSys::library::getLibrary();
     string isbn;
     cout<<"please input the isbn of the book:"<<endl;
+    cin>>isbn;
     lib1->borrow(*this,isbn);
 }
 /*==============================================================================
@@ -261,12 +262,12 @@ void Reader::apply23(){
     cin>>a;
     if(a=='Y'){
         lib1->retAllBook(*this);
-        cout<<"successfully return all the books!"<<endl;
+        // cout<<"successfully return all the books!"<<endl;
     }else if(a=='N'){
         cout<<"input isbn of the book you wanna return:";
         cin>>isbn;
         lib1->ret(*this,isbn);
-        cout<<"successfully return  the book!"<<endl;
+        // cout<<"successfully return  the book!"<<endl;
     }else{
         cout<<"input error!"<<endl;
         apply23();
@@ -289,7 +290,7 @@ void Reader::apply25(){
     //look up borrowlog
     LibSys::library* lib1= LibSys::library::getLibrary();
     lib1->personalBorrowTrace(*this);
-    system("pause");
+    
 }
 /*==============================================================================
 |函 数 名|:apply31
@@ -325,10 +326,10 @@ void Visitor::apply32(){
      string s1;
     char c;
     system("cls");
-    cout<<"how do you want to search the"
-    <<"book(N(NAME),I(ISBN),A(AUTHOR),P(PRESS)):"<<endl;
+    cout<<"您希望通过哪种方式来搜索书籍，"<<endl;
+    cout<<"书名请输入‘N’,ISBN请输入‘I’,作者名请输入‘A’,出版社名请输入‘P’:";
     cin>>c;
-    cout<<"input the keyword:"<<endl;
+    cout<<"请输入其关键词:";
     cin>>s1;
     
     switch(c){
@@ -385,14 +386,14 @@ void Admin::apply1()
     while(1){
         int i;
         system("cls");
-        cout<<"-----Admin Page-----"<<endl;
-        cout<<"1.book search"<<endl;
-        cout<<"2.information modify"<<endl;
-        cout<<"3.information insert"<<endl;
-        cout<<"4.information delete"<<endl;
-        cout<<"5.look up borrowlog"<<endl;
-        cout<<"6.back to last page"<<endl;
-        cout<<"please input the choice:(1-6):";
+        cout<<"----管理员界面----"<<endl;
+        cout<<"1.书籍查询"<<endl;
+        cout<<"2.书籍修改"<<endl;
+        cout<<"3.书籍信息增加"<<endl;
+        cout<<"4.书籍信息删除"<<endl;
+        cout<<"5.查看用户借阅记录"<<endl;
+        cout<<"6.返回上一页"<<endl;
+        cout<<"请输入您要使用的功能选项（1-6）:";
 
         cin>>i;
         system("cls");
@@ -422,7 +423,7 @@ void Admin::apply1()
                 return;
                 break;
             default:
-                cout<<"input error!"<<endl;
+                cout<<"输入错误!"<<endl;
                 
 
         }
@@ -444,14 +445,15 @@ void Reader::apply2()   //读者功能
 {
     while(1){
         int i;
-        cout<<"-----Reader Page-----"<<endl;
-        cout<<"1.book search"<<endl;
-        cout<<"2.borrow book"<<endl;
-        cout<<"3.return book"<<endl;
+        system("cls");
+        cout<<"-----读者界面-----"<<endl;
+        cout<<"1.书籍查询"<<endl;
+        cout<<"2.书籍借阅"<<endl;
+        cout<<"3.书籍归还"<<endl;
         // cout<<"4.modify personal informatin"<<endl;
-        cout<<"4.look up borrowlog"<<endl;
-        cout<<"5.back to last page"<<endl;
-        cout<<"please input the choice:(1-6)";
+        cout<<"4.查看个人借阅日志"<<endl;
+        cout<<"5.返回上一页"<<endl;
+        cout<<"请输入您要使用的功能选项（1-5）：";
         cin>>i;
         system("cls");
         switch(i){
@@ -477,7 +479,7 @@ void Reader::apply2()   //读者功能
               
             
             default:
-                cout<<"input error!"<<endl;
+                cout<<"输入错误!"<<endl;
                 
 
          }
@@ -501,12 +503,13 @@ void Reader::apply2()   //读者功能
 void Visitor::apply3()
 {   //游客功能
     while(1){
+        system("cls");
         int i;
-        cout<<"-----Visitor-----"<<endl;
-        cout<<"1.look up the information of all books"<<endl;
-        cout<<"2.search the information of the book"<<endl;
-        cout<<"3.back to last page"<<endl;
-        cout<<"please input the choice(1-3):"<<endl;
+        cout<<"-----游客界面-----"<<endl;
+        cout<<"1.查询所有馆藏书籍"<<endl;
+        cout<<"2.查询书籍"<<endl;
+        cout<<"3.返回上一页"<<endl;
+        cout<<"请输入您要使用的功能选项（1-3）:"<<endl;
         cin>>i;
         switch(i){
             case 1:
@@ -519,7 +522,7 @@ void Visitor::apply3()
                 return;
                 //last page
             default:
-                cout<<"input error!"<<endl;
+                cout<<"输入错误!"<<endl;
                 
             
         }
