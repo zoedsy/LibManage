@@ -1,7 +1,7 @@
 /*
  * @Author: DuShiyi
  * @Date: 2020-07-15 17:56:32
- * @LastEditTime: 2020-07-16 19:16:28
+ * @LastEditTime: 2020-07-16 21:49:10
  * @LastEditors: Please set LastEditors
  * @Description: about person(admin ,visitor,reader)
  * @FilePath: \LibManage\src\person.cpp
@@ -424,11 +424,12 @@ void Admin::apply1()
                 break;
             default:
                 cout<<"输入错误!"<<endl;
+                return;
                 
 
         }
     
-	    system("pause");
+	    // system("pause");
     }
 }
 /*==============================================================================
@@ -483,7 +484,7 @@ void Reader::apply2()   //读者功能
                 
 
          }
-        system("pause");
+        
 
     }
     
@@ -526,7 +527,7 @@ void Visitor::apply3()
                 
             
         }
-        system("pause");
+        
     }
 	
 }   
