@@ -21,18 +21,60 @@ private:
 
 public:
     trace() = default;
+    /**
+     * @name append
+     * @brief get the borrow list of the person
+     * @param NAME the personal account
+     * @param ISBN ISBN of the book
+     * @param LEND_TIME the time of the book lend
+     * @return null
+     * @date 2020/7/14
+     * @author ÂíÏþ³¿
+    */
     void append(std::string NAME, std::string ISBN, std::string LEND_TIME)
     {
         book_trace.push_back({NAME,ISBN,LEND_TIME});
     }
-    //Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½
-    std::list<std::string> search_people(std::string);
-    //Õ¹Ê¾È«ï¿½ï¿½ï¿½ï¿½Ï¢
+    /**
+     * @name search_people
+     * @brief get the borrow list of the person
+     * @param account the account of the person
+     * @return return the list of ISBN the person borrowed
+     * @date 2020/7/14
+     * @author ÂíÏþ³¿
+    */
+    std::list<std::string> search_people(std::string accout);
+    /**
+     * @brief show all borrow list
+     * @param null
+     * @return null
+     * @date 2020/7/14
+     * @author ÂíÏþ³¿
+    */
     void show_all()const;
-    //Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£©   ï¿½Ø±ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÎªï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+    /**
+     * @brief show all borrow list
+     * @param null
+     * @return the lent_time of the book
+     * @date 2020/7/14
+     * @author ÂíÏþ³¿
+    */
     std::string remove_people(std::string);
-    //Í¨ï¿½ï¿½show_allï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£©
+    /**
+     * @brief return the indexed book
+     * @param n the index showed
+     * @return info of the trace
+     * @date 2020/7/14
+     * @author ÂíÏþ³¿
+    */
     tip remove_ID(int n);
+    /**
+     * @brief get the trace of specifc trace
+     * @param object us the similar trace to search for the original trace
+     * @return the lent_time of the book
+     * @date 2020/7/14
+     * @author ÂíÏþ³¿
+    */
     std::string erase(tip const&object)noexcept;
 
     ~trace() = default;

@@ -19,7 +19,7 @@ class Visitor:public Person{
         string account;
     public:
         Visitor(){
-           //ç›´æ¥è¿›å…¥æœç´¢æ¨¡å—
+           //Ö±½Ó½øÈëËÑË÷Ä£¿é
         }
         void apply3();
         void apply31();
@@ -30,7 +30,7 @@ class Reader:public Person{
     protected:
         string account;
         string password;
-        map<string,bool> readlog; //å€Ÿé˜…ä¿¡æ¯å­˜å‚¨çš„æ•°æ®ç»“æ„
+        map<string,bool> readlog; //½èÔÄĞÅÏ¢´æ´¢µÄÊı¾İ½á¹¹
     public:
         Reader(){
             
@@ -51,7 +51,7 @@ class Admin:public Person{
      public:
         string GetAccount()const noexcept{return account;}
         Admin(){
-            //è¿›å…¥ç™»é™†åçš„ç®¡ç†è€…ç•Œé¢
+            //½øÈëµÇÂ½ºóµÄ¹ÜÀíÕß½çÃæ
         }
         void apply1();  
         void apply11();
