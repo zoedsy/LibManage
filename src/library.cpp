@@ -29,8 +29,8 @@ namespace LibSys{
             exit(1);
         }
         string str;
-        getline(cin,str);
-        data>> str;
+        getline(data,str);
+        data >> str;
         int number = atoi(str.c_str());
         for(int i = 0 ; i < number ; i++){
             int temp,count;
@@ -50,7 +50,7 @@ namespace LibSys{
             cout <<"fail to open the saving target!";
             exit(1);
         }
-        data << "ï¿½ï¿½ï¿½\tï¿½ï¿½ï¿½ï¿½\tISBN\tï¿½ï¿½ï¿½ï¿½\tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\tï¿½ï¿½ï¿½ï¿½\tï¿½ï¿½ï¿½ï¿½\n";
+        data << "ĞòºÅ	ÊéÃû	ISBN	×÷Õß	³ö°æÉç	ÊıÁ¿	·ÖÀà\n";
         data << BooksMap.size() << endl;
         auto it = BooksMap.begin();
         for(int i = 1 ; i <= BooksMap.size() ;i++)

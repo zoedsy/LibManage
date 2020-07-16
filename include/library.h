@@ -61,7 +61,7 @@ namespace LibSys{
     */
     class library{
         private:
-            std::unordered_map<std::string,Book>                BooksMap;
+
             trace                                               borrow_trace;
             std::unordered_multimap<std::string,std::string>    NameToISBN;
             std::string                                         DestFile;
@@ -75,13 +75,14 @@ namespace LibSys{
             static const std::string LOGFILE;
             void log(Message const&m)noexcept;
         public:
+            std::unordered_map<std::string,Book>                BooksMap;
             const static std::string DefaultFile;//default file set
             /**
              * @brief default constructor 
              * using the default file to fetch data
             */
             library()noexcept{update();}
-            ~library()noexcept;
+            ~library()noexcept{};
             /**
              * @brief assign the file to reload
              * @param file the assigned file
