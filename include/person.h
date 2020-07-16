@@ -4,7 +4,7 @@
 /*
  * @Author: DuShiyi
  * @Date: 2020-07-15 17:56:32
- * @LastEditTime: 2020-07-16 13:58:53
+ * @LastEditTime: 2020-07-16 18:25:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \LibManage\include\person.h
@@ -15,25 +15,25 @@ namespace LibSys{
 }
 
 class Person{
-    public:
-        static Logs* ls;
-        static LibSys::library*lib;
+    // public:
+    //     // static Logs* ls;
+    //     // static LibSys::library*lib;
 
 };
 
-class Visitor:public Person{
+class Visitor{
     protected:
         string account;
     public:
         Visitor(){
-           //直接进入搜索模块
+           
         }
         void apply3();
         void apply31();
         void apply32();
 
 };
-class Reader:public Person{
+class Reader{
     protected:
         string account;
         string password;
@@ -47,11 +47,11 @@ class Reader:public Person{
         void apply21();
         void apply22();
         void apply23();
-        void apply24();
+        // void apply24();
         void apply25();
 
 };
-class Admin:public Person{
+class Admin{
     protected:
         string account;
         string password;
