@@ -1,7 +1,7 @@
 /*
  * @Author: DuShiyi
  * @Date: 2020-07-15 17:56:32
- * @LastEditTime: 2020-07-16 23:43:01
+ * @LastEditTime: 2020-07-17 01:06:12
  * @LastEditors: Please set LastEditors
  * @Description: about person(admin ,visitor,reader)
  * @FilePath: \LibManage\src\person.cpp
@@ -45,51 +45,73 @@ void Admin::apply10(){
 |作    者|：杜诗仪
 ========================================================================================*/ 
 void Admin::apply11(){
-    //search
-    LibSys::library* lib1= LibSys::library::getLibrary();
-    string s1;
-    char c;
-    system("cls");
-    cout<<"您希望通过哪种方式来搜索书籍，"<<endl;
-    cout<<"书名请输入‘N’,ISBN请输入‘I’,作者名请输入‘A’,出版社名请输入‘P’:";
-    cin>>c;
-    cout<<"请输入其关键词:";
-    cin>>s1;
-    
-    switch(c){
-        case 'N':
+      //search information
+    while(1){
+        LibSys::library* lib1= LibSys::library::getLibrary();
+        string s1;
+        char c;
+        int flag=1;
+        system("cls");
+        cout<<"您希望通过哪种方式来搜索书籍，"<<endl;
+        cout<<"书名请输入‘N’,ISBN请输入‘I’,作者名请输入‘A’,出版社名请输入‘P’:";
+        cin>>c;
+        cout<<"请输入其关键词:";
+        cin>>s1;
+        
+        switch(c){
+            case 'N':
 
-            if(lib1->search(s1,LibSys::library::field::NAME)){
-              
-
-            }else{
-                cout<<"未找到相应书籍"<<endl;
-            }
-            break;
-        case 'I':
-            if(lib1->search(s1,LibSys::library::field::ISBN)){
+                if(!lib1->search(s1,LibSys::library::field::NAME)){
+                    cout<<"找不到该书！"<<endl;
+                    
+                }else{
             
-            }else{
-                cout<<"未找到相应书籍"<<endl;
-            }
-            break;
-        case 'A':
-             if(lib1->search(s1,LibSys::library::field::AUTHOR)){
+                    
+                    cout<<"successfully searched the book!"<<endl;
+                }
+                system("pause");
+                break;
+            case 'I':
                 
-            }else{
-                cout<<"未找到相应书籍"<<endl;
-            }
-            break;
-        case 'P':
-            if(lib1->search(s1,LibSys::library::field::PRESS)){
-               
-            }else{
-                cout<<"未找到相应书籍"<<endl;
-            }
-            break;
+                if(!lib1->search(s1,LibSys::library::field::ISBN)){
+                    cout<<"找不到该书！"<<endl;
+                    
+                }else{
+                    
+                    cout<<"successfully searched the book!"<<endl;
+                }
+                system("pause");
+                break;
+            case 'A':
+                
+                if(!lib1->search(s1,LibSys::library::field::AUTHOR)){
+                    cout<<"找不到该书！"<<endl;
+                   
+                }else{
+                    
+                    cout<<"successfully searched the book!"<<endl;
+                }
+                 system("pause");
+                break;
+            case 'P':
+                
+                if(!lib1->search(s1,LibSys::library::field::PRESS)){
+                    cout<<"找不到该书！"<<endl;
+                    
+                }else{
+                    cout<<"successfully searched the book!"<<endl;
+                }
+                system("pause");
+                break;
+            default:
+                cout<<"输入搜索方式格式错误！"<<endl;
+                cout<<"0.重新输入 1.返回上一页：";
+                cin>>flag;
 
+        }
+        if(flag) break;
+        
     }
-    system("pause");
     //back admin function menu
     
 }
@@ -134,7 +156,7 @@ void Admin::apply13(){
     //information insert
     LibSys::library* lib1= LibSys::library::getLibrary();
     string n;string isbn;string author;string press;int count;string cg;
-    cout<<"请按照示例格式输入所录入书的信息(书名 ISBN 出版社 库存量 上架类型):";
+    cout<<"请按照示例格式输入所录入书的信息(书名 ISBN 出版社 作者 库存量 上架类型):";
     cin>>n;cin>>isbn;cin>>author;cin>>press;cin>>count;cin>>cg;
     LibSys::Book b(n,isbn,author,press,count,LibSys::StringToCategory(cg));
     lib1->buy(*this,b);
@@ -157,7 +179,7 @@ void Admin::apply14(){
     //information delete
     LibSys::library* lib1= LibSys::library::getLibrary();
     string n;string isbn;string author;string press;int count;string cg;
-    cout<<"请按照示例格式输入所删除书的信息(书名 ISBN 出版社 数量 上架类型):";
+    cout<<"请按照示例格式输入所删除书的信息(书名 ISBN 作者 出版社 数量 上架类型):";
     cin>>n;cin>>isbn;cin>>author;cin>>press;cin>>count;cin>>cg;
     LibSys::Book b(n,isbn,author,press,count,LibSys::StringToCategory(cg));
     lib1->discard(*this,b);
@@ -216,53 +238,73 @@ void Reader::apply20(){
 |作    者|：杜诗仪
 ========================================================================================*/ 
 void Reader::apply21(){
-    //search
-    LibSys::library* lib1= LibSys::library::getLibrary();
-    string s1;
-    char c;
-    system("cls");
-    cout<<"您希望通过哪种方式来搜索书籍，"<<endl;
-    cout<<"书名请输入‘N’,ISBN请输入‘I’,作者名请输入‘A’,出版社名请输入‘P’:";
-    cin>>c;
-    cout<<"请输入其关键词:";
-    cin>>s1;
-    
-    switch(c){
-        case 'N':
+      //search information
+    while(1){
+        LibSys::library* lib1= LibSys::library::getLibrary();
+        string s1;
+        char c;
+        int flag=1;
+        system("cls");
+        cout<<"您希望通过哪种方式来搜索书籍，"<<endl;
+        cout<<"书名请输入‘N’,ISBN请输入‘I’,作者名请输入‘A’,出版社名请输入‘P’:";
+        cin>>c;
+        cout<<"请输入其关键词:";
+        cin>>s1;
+        
+        switch(c){
+            case 'N':
 
-            if(lib1->search(s1,LibSys::library::field::NAME)){
-              
-
-            }else{
-                cout<<"can not find the book"<<endl;
-            }
-            break;
-        case 'I':
-            if(lib1->search(s1,LibSys::library::field::ISBN)){
+                if(!lib1->search(s1,LibSys::library::field::NAME)){
+                    cout<<"找不到该书！"<<endl;
+                    
+                }else{
             
-            }else{
-                cout<<"can not find the book"<<endl;
-            }
-            break;
-        case 'A':
-             if(lib1->search(s1,LibSys::library::field::AUTHOR)){
+                    
+                    cout<<"successfully searched the book!"<<endl;
+                }
+                system("pause");
+                break;
+            case 'I':
                 
-            }else{
-                cout<<"can not find the book"<<endl;
-            }
-            break;
-        case 'P':
-            if(lib1->search(s1,LibSys::library::field::PRESS)){
-               
-            }else{
-                cout<<"can not find the book"<<endl;
-            }
-            break;
+                if(!lib1->search(s1,LibSys::library::field::ISBN)){
+                    cout<<"找不到该书！"<<endl;
+                    
+                }else{
+                    
+                    cout<<"successfully searched the book!"<<endl;
+                }
+                system("pause");
+                break;
+            case 'A':
+                
+                if(!lib1->search(s1,LibSys::library::field::AUTHOR)){
+                    cout<<"找不到该书！"<<endl;
+                   
+                }else{
+                    
+                    cout<<"successfully searched the book!"<<endl;
+                }
+                 system("pause");
+                break;
+            case 'P':
+                
+                if(!lib1->search(s1,LibSys::library::field::PRESS)){
+                    cout<<"找不到该书！"<<endl;
+                    
+                }else{
+                    cout<<"successfully searched the book!"<<endl;
+                }
+                system("pause");
+                break;
+            default:
+                cout<<"输入搜索方式格式错误！"<<endl;
+                cout<<"0.重新输入 1.返回上一页：";
+                cin>>flag;
 
+        }
+        if(flag) break;
+        
     }
-    system("pause");
-    //back admin function menu
-    // apply2();
 }
 /*==============================================================================
 |函 数 名|:apply22
@@ -370,50 +412,73 @@ void Visitor::apply31(){
 ========================================================================================*/ 
 void Visitor::apply32(){
     //search information
-    LibSys::library* lib1= LibSys::library::getLibrary();
-     string s1;
-    char c;
-    system("cls");
-    cout<<"您希望通过哪种方式来搜索书籍，"<<endl;
-    cout<<"书名请输入‘N’,ISBN请输入‘I’,作者名请输入‘A’,出版社名请输入‘P’:";
-    cin>>c;
-    cout<<"请输入其关键词:";
-    cin>>s1;
-    
-    switch(c){
-        case 'N':
+    while(1){
+        LibSys::library* lib1= LibSys::library::getLibrary();
+        string s1;
+        char c;
+        int flag=1;
+        system("cls");
+        cout<<"您希望通过哪种方式来搜索书籍，"<<endl;
+        cout<<"书名请输入‘N’,ISBN请输入‘I’,作者名请输入‘A’,出版社名请输入‘P’:";
+        cin>>c;
+        cout<<"请输入其关键词:";
+        cin>>s1;
+        
+        switch(c){
+            case 'N':
 
-            if(lib1->search(s1,LibSys::library::field::NAME)){
-              
-
-            }else{
-                cout<<"can not find the book"<<endl;
-            }
-            break;
-        case 'I':
-            if(lib1->search(s1,LibSys::library::field::ISBN)){
+                if(!lib1->search(s1,LibSys::library::field::NAME)){
+                    cout<<"找不到该书！"<<endl;
+                    
+                }else{
             
-            }else{
-                cout<<"can not find the book"<<endl;
-            }
-            break;
-        case 'A':
-             if(lib1->search(s1,LibSys::library::field::AUTHOR)){
+                    
+                    cout<<"successfully searched the book!"<<endl;
+                }
+                system("pause");
+                break;
+            case 'I':
                 
-            }else{
-                cout<<"can not find the book"<<endl;
-            }
-            break;
-        case 'P':
-            if(lib1->search(s1,LibSys::library::field::PRESS)){
-               
-            }else{
-                cout<<"can not find the book"<<endl;
-            }
-            break;
+                if(!lib1->search(s1,LibSys::library::field::ISBN)){
+                    cout<<"找不到该书！"<<endl;
+                    
+                }else{
+                    
+                    cout<<"successfully searched the book!"<<endl;
+                }
+                system("pause");
+                break;
+            case 'A':
+                
+                if(!lib1->search(s1,LibSys::library::field::AUTHOR)){
+                    cout<<"找不到该书！"<<endl;
+                   
+                }else{
+                    
+                    cout<<"successfully searched the book!"<<endl;
+                }
+                 system("pause");
+                break;
+            case 'P':
+                
+                if(!lib1->search(s1,LibSys::library::field::PRESS)){
+                    cout<<"找不到该书！"<<endl;
+                    
+                }else{
+                    cout<<"successfully searched the book!"<<endl;
+                }
+                system("pause");
+                break;
+            default:
+                cout<<"输入搜索方式格式错误！"<<endl;
+                cout<<"0.重新输入 1.返回上一页：";
+                cin>>flag;
 
+        }
+        if(flag) break;
+        
     }
-    system("pause");
+    
     //back admin function menu
     
 }
@@ -566,7 +631,7 @@ void Visitor::apply3()
         cout<<"1.查询所有馆藏书籍"<<endl;
         cout<<"2.查询书籍"<<endl;
         cout<<"3.返回上一页"<<endl;
-        cout<<"请输入您要使用的功能选项（1-3）:"<<endl;
+        cout<<"请输入您要使用的功能选项（1-3）:";
         cin>>i;
         switch(i){
             case 1:

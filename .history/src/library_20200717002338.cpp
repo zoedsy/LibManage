@@ -245,7 +245,7 @@ namespace LibSys{
             }return "";
         };
         auto&&temp=borrow_trace.remove_ID(Ind);
-        log(Message(getTime(),temp.account,
+        log(Message(getTime(),temp.name,
             ActionCreator("return",ISBNToName(temp.isbn),temp.isbn)));
     }
     void library::personalBorrowTrace(Reader const&reader)noexcept{
