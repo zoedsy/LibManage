@@ -33,7 +33,7 @@ public:
 	void autosave1()
 	{
 		ofstream file;
-		file.open("admin.txt", ios::out);
+		file.open("data/admin.txt", ios::out);
 		if (!file.is_open())
 		{
 			cout << "文件打开失败！" << endl;
@@ -70,7 +70,7 @@ public:
 	void autoget1()
 	{
 		ifstream infile;
-		infile.open("admin.txt", ios::in);
+		infile.open("data/admin.txt", ios::in);
 		if (!infile.is_open())
 		{
 			cout << "文件打开失败！" << endl;
@@ -273,7 +273,7 @@ public:
 	void autosave2()
 	{
 		ofstream file;
-		file.open("reader.txt", ios::out);
+		file.open("data/reader.txt", ios::out);
 		if (!file.is_open())
 		{
 			cout << "文件打开失败！" << endl;
@@ -303,7 +303,7 @@ public:
 	void autoget2()
 	{
 		ifstream infile;
-		infile.open("reader.txt", ios::in);
+		infile.open("data/reader.txt", ios::in);
 		if (!infile.is_open())
 		{
 			cout << "文件打开失败！" << endl;
