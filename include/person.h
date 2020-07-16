@@ -1,7 +1,14 @@
 #pragma once
 #include"log.h"
 #include<map>
-
+/*
+ * @Author: DuShiyi
+ * @Date: 2020-07-15 17:56:32
+ * @LastEditTime: 2020-07-16 13:58:53
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \LibManage\include\person.h
+ */ 
 // forward declaration
 namespace LibSys{
     class library;
