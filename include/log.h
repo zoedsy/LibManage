@@ -315,7 +315,7 @@ public:
 			int size;
 			infile >> tmp;
 			if (tmp == "账号：") {								//依照reader文件格式输入数据
-				Account1.clear();
+				Account2.clear();
 				infile >> size;
 				for (int i = 0; i < size; i++) {
 					infile >> account;
@@ -324,7 +324,7 @@ public:
 			}
 			infile >> tmp;
 			if (tmp == "密码：") {
-				Password1.clear();
+				Password2.clear();
 				infile >> size;
 				for (int i = 0; i < size; i++) {
 					infile >> password;

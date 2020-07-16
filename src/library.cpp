@@ -118,7 +118,11 @@ namespace LibSys{
     }
     bool library::ret(Reader const&m,Book const&book)noexcept{
         std::string BorrowTime=borrow_trace.erase({m.GetAccount(),book.isbn,""});
-        log(Message(getTime(),m.GetAccount(),ActionCreator("return",book.GetName(),book.isbn)));
+        if(BorrowTime!=""){
+            ++BooksMap[book.isbn].count;
+            log(Message(getTime(),m.GetAccount(),ActionCreator("return",book.GetName(),book.isbn)));
+        }else
+            log(Message(getTime(),m.GetAccount(),ActionCreator("return",book.GetName(),"error! Never Borrow")));
         return BorrowTime!="";
     }
     bool library::ret(Reader const&m,std::string const&_isbn)noexcept{
@@ -194,6 +198,7 @@ namespace LibSys{
         }
         log(Message(getTime(),ad.GetAccount(),
                         ActionCreator("buy/add",book.GetName(),book.isbn)));
+        save();
     }
     bool library::changeBookName(Admin const&Ad,std::string const&_isbn,std::string const&new_name){
         try{
