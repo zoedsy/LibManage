@@ -3,6 +3,7 @@
 #include"../include/person.h"
 #include<iostream>
 #include<fstream>
+#include<regex>
 namespace LibSys{
     //import namespace std
     using namespace std;
@@ -21,11 +22,12 @@ namespace LibSys{
     //-----load all the book info------//
     void library::update(std::string const&file) noexcept{
         fstream data;
-        data.open("../data/" + file,ios::out | ios::app);
+        data.open(file,ios::out | ios::app);
         data.close();
-        data.open("../data/" + file, ios::in);
+        data.open(file, ios::in);
         if(data.fail()){
             cout << "fail to find the book data!";
+            log(Message(getTime(),"System","launches erroneously"));
             exit(1);
         }
         string str;
@@ -45,7 +47,7 @@ namespace LibSys{
     }
     void library::save(std::string const&file){
         fstream data;
-        data.open("../data/" + file, ios::out|ios::ate);
+        data.open(file, ios::out|ios::ate);
         if(data.fail()){
             cout <<"fail to open the saving target!";
             exit(1);
@@ -159,6 +161,12 @@ namespace LibSys{
                 }
                 return found;
             default:
+            std::regex regex(".*"+seg+".*",std::regex::nosubs);
+            for(auto&&it:BooksMap){
+                if(std::regex_match(it.second.toString(),regex)){
+                    std::cout<<it.second<<std::endl;
+                }
+            }
             //use regex to search
             return false;
             }
