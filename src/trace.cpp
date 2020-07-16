@@ -15,7 +15,7 @@ std::string trace::erase(tip const&object)noexcept
 
 void trace::show_all()const
 {
-    std::cout << "ï¿½ï¿½ï¿½\tISBN\tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\tï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½\n";
+    std::cout << "ÐòºÅ\tISBN\tÊéÃû\t½è³öÊ±¼ä\n";
     int size = book_trace.size();
     if (size != 0)
     {
@@ -29,13 +29,13 @@ void trace::show_all()const
     }
     else
     {
-        std::cout << "Ã»ï¿½Ð½ï¿½ï¿½Ä¼ï¿½Â¼";
+        std::cout << "Ã»ÓÐ½èÔÄ¼ÇÂ¼";
     }
 }
 std::list<std::string> trace::search_people(std::string name)
 {
     std::list<std::string> ISBNs;
-    std::cout << "ï¿½ï¿½ï¿½Ú°ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢" << std::endl;
+    std::cout << "ÕýÔÚ°´ÐÕÃû²éÕÒ¼ÇÂ¼£º" << std::endl;
     int size = book_trace.size();
     if (size != 0)
     {
@@ -52,16 +52,16 @@ std::list<std::string> trace::search_people(std::string name)
     }
     else
     {
-        std::cout << "Ã»ï¿½Ð½ï¿½ï¿½Ä¼ï¿½Â¼";
+        std::cout << "Ã»ÓÐ½èÔÄ¼ÇÂ¼";
     }return ISBNs;
 }
 std::string trace::remove_people(std::string name)
 {
-    std::cout << "ï¿½ï¿½ï¿½Ú°ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½Ï¢" << std::endl;
+    std::cout << "ÕýÔÚ°´ÐÕÃûÒÆ³ý½èÔÄ¼ÇÂ¼£º" << std::endl;
     int size = book_trace.size();
     if (size == 0)
     {
-        std::cout << "Ã»ï¿½Ð½ï¿½ï¿½Ä¼ï¿½Â¼!ï¿½Þ·ï¿½É¾ï¿½ï¿½ï¿½ï¿½";
+        std::cout << "Ã»ÓÐ½èÔÄ¼ÇÂ¼£¬ÎÞ·¨É¾³ý£¡";
         return "";
     }
     else
@@ -72,7 +72,7 @@ std::string trace::remove_people(std::string name)
             if (it->name == name)
             {
                 size--;
-                std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Â¼" << std::endl;
+                std::cout << "¸Ã½èÊé¼ÇÂ¼ÒÑ±»ÒÆ³ý£º" << std::endl;
                 std::cout << i << "\t" << it->isbn << it->name << it->lend_time << std::endl;
                 std::string temp = it->lend_time;
                 book_trace.erase(it);
@@ -82,23 +82,23 @@ std::string trace::remove_people(std::string name)
             it++;
         }
         if (flag)
-            std::cout << "Ã»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+            std::cout << "Ã»ÓÐÕÒµ½¸ÃÐÕÃû";
         it = book_trace.begin();
         return "";
     }
 }
 trace::tip trace::remove_ID(int n)
 {
-    std::cout << "ï¿½ï¿½ï¿½Ú°ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½Ï¢" << std::endl;
+    std::cout << "ÕýÔÚ°´ÐòºÅÒÆ³ý¼ÇÂ¼:" << std::endl;
     int size = book_trace.size();
     if (size == 0)
     {
-        std::cout << "Ã»ï¿½Ð½ï¿½ï¿½Ä¼ï¿½Â¼ï¿½ï¿½ï¿½Þ·ï¿½É¾ï¿½ï¿½";
+        std::cout << "Ã»ÓÐ½èÔÄ¼ÇÂ¼£¬ÎÞ·¨ÒÆ³ý£¡";
         return {"","",""};
     }
     else if (n > size || n < 0)
     {
-        std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½Å£ï¿½";
+        std::cout << "ÐòºÅ´íÎó£¬ÕÒ²»µ½¸ÃÌõÐÅÏ¢£¡";
         return {"","",""};
     }
     else 
@@ -109,7 +109,7 @@ trace::tip trace::remove_ID(int n)
             if (i == n)
             {
                 size--;
-                std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Â¼" << std::endl;
+                std::cout << "¸Ã¼ÇÂ¼ÒÑ±»ÒÆ³ý£¡" << std::endl;
                 std::cout << i << "\t" << it->isbn << it->name << it->lend_time << std::endl;
                 std::string temp = it->lend_time;
                 trace::tip ret={it->name,it->isbn,it->lend_time};
