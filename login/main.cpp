@@ -14,6 +14,7 @@ int main()
 	while (1)
 	{
 		system("cls");
+		// cout<<"bugbugbugbug"<<endl;
 		firstPage();
 	}
 	return 0;
@@ -21,13 +22,13 @@ int main()
 
 void firstPage(){
 
-	cout << " ------Ð¡ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½Â¼------" << endl;
-	cout << "       1.ï¿½ï¿½ï¿½ï¿½Ô±                  " << endl;
-	cout << "       2.ï¿½ï¿½ï¿½ï¿½                    " << endl;
-	cout << "       3.ï¿½Î¿ï¿½                    " << endl;
-	cout << "       4.ï¿½Ë³ï¿½                    " << endl;
+	cout << " ------Ð¡´¨Í¼Êé¹ÜÀíÏµÍ³------" << endl;
+	cout << "       1.¹ÜÀíÔ±                  " << endl;
+	cout << "       2.¶ÁÕß                    " << endl;
+	cout << "       3.ÓÎ¿Í                    " << endl;
+	cout << "       4.ÍË³öÏµÍ³                    " << endl;
 	cout << " --------------------------------" << endl;
-	cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½î£¨1-4ï¿½ï¿½:";
+	cout << "ÇëÊäÈëÑ¡Ïî£¨1-4£©:";
 	int i;  cin >> i;
 	secondPage(i);
 	
@@ -42,11 +43,11 @@ void secondPage(int i){
 			
 	
 			system("cls");
-			cout << "--------ï¿½ï¿½ï¿½ï¿½Ô±--------" << endl;
+			cout << "--------¹ÜÀíÔ±½çÃæ--------" << endl;
 			cout << "***********************" << endl;
-			cout << "       1.ï¿½ï¿½Â¼          " << endl;
-			cout << "       2.ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½      " << endl;
-			cout << "       3.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ò³      " << endl;
+			cout << "       1.µÇÂ½          " << endl;
+			cout << "       2.ÐÞ¸ÄÃÜÂë      " << endl;
+			cout << "       3.·µ»ØÉÏÒ»¼¶      " << endl;
 			cout << "***********************" << endl;
 			int m; cin >> m;  
 			thirdPage1(m);
@@ -59,12 +60,12 @@ void secondPage(int i){
 			
 		
 			system("cls");
-			cout << "---------ï¿½ï¿½ï¿½ï¿½---------" << endl;
+			cout << "---------¶ÁÕß½çÃæ---------" << endl;
 			cout << "***********************" << endl;
-			cout << "       1.ï¿½ï¿½Â¼          " << endl;
-			cout << "       2.×¢ï¿½ï¿½          " << endl;
-			cout << "       3.ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½      " << endl;
-			cout << "       4.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ò³      " << endl;
+			cout << "       1.µÇÂ½          " << endl;
+			cout << "       2.×¢²á          " << endl;
+			cout << "       3.ÐÞ¸ÄÃÜÂë      " << endl;
+			cout << "       4.·µ»ØÉÏÒ»¼¶      " << endl;
 			cout << "***********************" << endl;
 			int m; cin >> m;
 			thirdPage2(m);
@@ -74,20 +75,20 @@ void secondPage(int i){
 		{
 			Visitor vis;
 
-			cout << "---------ï¿½Î¿ï¿½---------" << endl;
+			cout << "---------ÓÎ¿Í½çÃæ--------" << endl;
 			vis.apply3();
 		}
 		break;
 		case 4:
 		{
-			cout << "-------ï¿½Ë³ï¿½ï¿½É¹ï¿½-------" << endl;
+			cout << "------ÍË³öÏµÍ³-------" << endl;
 			system("pause");
 			exit(0);
 			break;
 		}
 		default:
 		{
-			cout << "--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--" << endl;
+			cout << "--´íÎóÑ¡Ïî--" << endl;
 			firstPage();
 			
 		}
@@ -102,7 +103,7 @@ void thirdPage1(int i){
 			case 1:
 			{
 				if (adm.ls->goin1() == 1)
-					cout<<"dgfasdg"<<endl;
+					// cout<<"dgfasdg"<<endl;
 					adm.apply1();
 				break;
 			}
@@ -113,13 +114,13 @@ void thirdPage1(int i){
 			}
 			case 3:
 			{
-				cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ò³" << endl;
+				cout << "·µ»ØÉÏÒ»¼¶" << endl;
 				firstPage();
 				break;
 			}
 			default:
 			{
-				cout << "ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+				cout << "--´íÎóÑ¡Ïî--" << endl;
 				secondPage(1);
 			}
 			}
@@ -149,13 +150,13 @@ void thirdPage2(int i){
 			}
 			case 4:
 			{
-				cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ò³" << endl;
+				cout << "·µ»ØÉÏÒ»Ò³" << endl;
 				firstPage();
 				break;
 			}
 			default:
 			{
-				cout << "ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+				cout << "---´íÎóÑ¡Ïî--" << endl;
 				secondPage(2);
 			}
 			}
@@ -167,7 +168,7 @@ void thirdPage2(int i){
 // {
 // L0:
 // 	// logs l;
-// 	cout << " ------Ð¡ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½Â¼------" << endl;
+// 	cout << " ------Ð¡ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½Â?------" << endl;
 // 	cout << "       1.ï¿½ï¿½ï¿½ï¿½Ô±                  " << endl;
 // 	cout << "       2.ï¿½ï¿½ï¿½ï¿½                    " << endl;
 // 	cout << "       3.ï¿½Î¿ï¿½                    " << endl;
@@ -279,7 +280,7 @@ void thirdPage2(int i){
 // 	}
 // 	default:
 // 	{
-// 		cout << "--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--" << endl;
+// 		cout << "--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?--" << endl;
 // 		goto L0;
 // 		break;
 // 	}
