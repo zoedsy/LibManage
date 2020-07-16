@@ -67,3 +67,4 @@ class Admin:public Person{
         void apply14();
         void apply15();
 };
+

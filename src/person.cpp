@@ -1,7 +1,7 @@
 /*
  * @Author: DuShiyi
  * @Date: 2020-07-15 17:56:32
- * @LastEditTime: 2020-07-16 14:53:39
+ * @LastEditTime: 2020-07-16 15:15:21
  * @LastEditors: Please set LastEditors
  * @Description: about person(admin ,visitor,reader)
  * @FilePath: \LibManage\src\person.cpp
@@ -530,3 +530,8 @@ void Visitor::apply3()
     }
 	
 }   
+
+
+
+
+
