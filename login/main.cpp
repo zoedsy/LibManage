@@ -32,7 +32,7 @@ void firstPage(){
 	int i;  cin >> i;
 	secondPage(i);
 	
-	system("pause");
+	
 
 }
 void secondPage(int i){
@@ -82,7 +82,7 @@ void secondPage(int i){
 		case 4:
 		{
 			cout << "------ÍË³öÏµÍ³-------" << endl;
-			system("pause");
+			
 			exit(0);
 			break;
 		}
