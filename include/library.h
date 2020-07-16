@@ -185,7 +185,6 @@ namespace LibSys{
              * @brief discard a bunch of books
             */
             void discard(Admin const&,Book const&)noexcept;
-            [[deprecated]]void sell(Person const&,Book const&)noexcept{}
             /**
              * @brief search book by field
             */

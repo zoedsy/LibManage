@@ -22,7 +22,7 @@ void trace::show_all()const
     {
         for (int i = 1; i <= size; i++)
         {
-            std::cout << i << "\t" << it->isbn << it->name << it->lend_time << std::endl;
+            std::cout << i << "\t" << it->isbn <<'\t'<< it->name <<'\t'<< it->lend_time << std::endl;
             it++;
         }
         std::cout << std::endl;
@@ -44,7 +44,7 @@ std::list<std::string> trace::search_people(std::string name)
         for (int i = 1; i <= size; i++)
         {
             if (it->name == name){
-                std::cout << i << "\t" << it->isbn << it->name << it->lend_time << std::endl;
+                std::cout << i << "\t" << it->isbn <<'\t'<< it->name<<'\t' << it->lend_time << std::endl;
                 ISBNs.push_back(it->isbn);
             }
             it++;
@@ -76,7 +76,7 @@ std::string trace::remove_people(std::string name)
             {
                 size--;
                 std::cout << "该借书记录已被移除！" << std::endl;
-                std::cout << i << "\t" << it->isbn << it->name << it->lend_time << std::endl;
+                std::cout << i << "\t" << it->isbn<<'\t' << it->name <<'\t'<< it->lend_time << std::endl;
                 std::string temp = it->lend_time;
                 book_trace.erase(it);
                 flag = 0;
@@ -114,7 +114,7 @@ trace::tip trace::remove_ID(int n)
             {
                 size--;
                 std::cout << "该记录已被移除！" << std::endl;
-                std::cout << i << "\t" << it->isbn << it->name << it->lend_time << std::endl;
+                std::cout << i << "\t" << it->isbn<<'\t' << it->name<<'\t' << it->lend_time << std::endl;
                 std::string temp = it->lend_time;
                 trace::tip ret={it->name,it->isbn,it->lend_time};
                 book_trace.erase(it);

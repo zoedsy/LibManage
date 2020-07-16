@@ -6,7 +6,7 @@ StaticLibName = library
 StaticLibPath = src
 main.exe:login/main.cpp $(obj)
 	g++ -std=c++11 login/main.cpp $(obj) -o main.exe
-
+ObjMake:$(obj)
 src/book.obj:src/book.cpp  
 	g++ -c src/book.cpp -o src/book.obj
 src/libTime.obj:src/libTime.cpp  
