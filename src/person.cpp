@@ -1,3 +1,4 @@
+    
 #include"../include/person.h"
 #include"../include/library.h"
 
@@ -154,7 +155,7 @@ void Reader::apply21(){
     }
     system("pause");
     //back admin function menu
-    apply1();
+    apply2();
 }
 void Reader::apply22(){
     //borrow
