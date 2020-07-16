@@ -44,6 +44,7 @@ class Reader{
         }
         string GetAccount()const noexcept{return account;}
         void apply2();
+        void apply20();
         void apply21();
         void apply22();
         void apply23();
@@ -60,6 +61,7 @@ class Admin{
         Admin(){
             //进入登陆后的管理者界面
         }
+        void apply10();
         void apply1();  
         void apply11();
         void apply12();
