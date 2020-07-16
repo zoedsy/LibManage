@@ -173,7 +173,7 @@ namespace LibSys{
         log(Message(getTime(),ad.GetAccount(),
                         ActionCreator("buy/add",book.GetName().c_str(),book.isbn.c_str())));
     }
-    bool library::changeBookName(Admin const&Ad,std::string const&_isbn,field,std::string const&new_name){
+    bool library::changeBookName(Admin const&Ad,std::string const&_isbn,std::string const&new_name){
         try{
             BooksMap.at(_isbn);
             BooksMap[_isbn].ChangeName(new_name);

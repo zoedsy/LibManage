@@ -1,7 +1,12 @@
 #pragma once
 #include"log.h"
-#include"library.h"
 #include<map>
+
+// forward declaration
+namespace LibSys{
+    class library;
+}
+
 class Person{
     public:
         static Logs* ls;
@@ -32,7 +37,6 @@ class Reader:public Person{
         }
         string GetAccount()const noexcept{return account;}
         void apply2();
-        void apply1();  
         void apply21();
         void apply22();
         void apply23();

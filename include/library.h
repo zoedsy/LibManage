@@ -111,7 +111,7 @@ namespace LibSys{
             */
             bool ret(Reader const&,Book const&)noexcept;
             bool ret(Reader const&,std::string const&_isbn)noexcept;
-            bool changeBookName(Admin const&,std::string const&_isbn,field,std::string const&_newName);
+            bool changeBookName(Admin const&,std::string const&_isbn,std::string const&_newName);
             /**
              * @brief purchase a bunch of books
             */
