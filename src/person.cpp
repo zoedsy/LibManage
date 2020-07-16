@@ -1,7 +1,7 @@
 /*
  * @Author: DuShiyi
  * @Date: 2020-07-15 17:56:32
- * @LastEditTime: 2020-07-16 21:49:10
+ * @LastEditTime: 2020-07-16 23:15:44
  * @LastEditors: Please set LastEditors
  * @Description: about person(admin ,visitor,reader)
  * @FilePath: \LibManage\src\person.cpp
@@ -12,7 +12,7 @@
 // logs = new Logs();
 //具体功能等待完善
 using LibSys::library;
-
+// LibSys::library* lib1= LibSys::library::getLibrary();
 /*
 |函 数 名|:apply10
 |功能描述|:管理员登陆后显示所有书籍
@@ -30,7 +30,7 @@ void Admin::apply10(){
     lib1->list(1);
     system("pause");
     //back admin function menu
-    apply1();    
+    // apply1();    
 }
 // Logs* Person::ls = new Logs();
 // library* Person::lib = new library();
@@ -91,7 +91,7 @@ void Admin::apply11(){
     }
     system("pause");
     //back admin function menu
-    apply1();    
+    
 }
 /*==============================================================================
 |函 数 名|:apply12
@@ -116,7 +116,7 @@ void Admin::apply12(){
     cout<<"successfully change book name!"<<endl;
     //返回功能主页
     system("pause");
-    apply1();
+    // apply1();
     
 }
 
@@ -140,7 +140,7 @@ void Admin::apply13(){
     lib1->buy(*this,b);
     cout<<"successfully insert book"<<endl;
     system("pause");
-    apply1();
+    // apply1();
 
 }
 /*==============================================================================
@@ -163,7 +163,7 @@ void Admin::apply14(){
     lib1->discard(*this,b);
     cout<<"successfully delete book"<<endl;
     system("pause");
-    apply1();
+    // apply1();
 
 
 }
@@ -182,7 +182,7 @@ void Admin::apply15(){
     LibSys::library* lib1= LibSys::library::getLibrary();
     lib1->listBorrowTrace();
     system("pause");
-    apply1();
+    // apply1();
 }
 
 /*
@@ -202,7 +202,7 @@ void Reader::apply20(){
     lib1->list(1);
     system("pause");
     //back admin function menu
-    apply2();
+    // apply2();
 }
 
 /*==============================================================================
@@ -262,7 +262,7 @@ void Reader::apply21(){
     }
     system("pause");
     //back admin function menu
-    apply2();
+    // apply2();
 }
 /*==============================================================================
 |函 数 名|:apply22
@@ -281,6 +281,7 @@ void Reader::apply22(){
     cout<<"please input the isbn of the book:"<<endl;
     cin>>isbn;
     lib1->borrow(*this,isbn);
+    system("pause");
 }
 /*==============================================================================
 |函 数 名|:apply11
@@ -295,22 +296,30 @@ void Reader::apply22(){
 void Reader::apply23(){
     //return
     LibSys::library* lib1= LibSys::library::getLibrary();
-    char a;
-    string isbn;
-    cout<<"Do you wannna return all the books?(Y/N):";
-    cin>>a;
-    if(a=='Y'){
-        lib1->retAllBook(*this);
-        // cout<<"successfully return all the books!"<<endl;
-    }else if(a=='N'){
-        cout<<"input isbn of the book you wanna return:";
-        cin>>isbn;
-        lib1->ret(*this,isbn);
-        // cout<<"successfully return  the book!"<<endl;
-    }else{
-        cout<<"input error!"<<endl;
-        apply23();
-    }
+    int flag=0;
+
+    do{
+        
+        char a;
+        string isbn;
+        cout<<"Do you wannna return all the books?(Y/N):";
+        cin>>a;
+        if(a=='Y'){
+            lib1->retAllBook(*this);
+            flag=0;
+            // cout<<"successfully return all the books!"<<endl;
+        }else if(a=='N'){
+            cout<<"input isbn of the book you wanna return:";
+            cin>>isbn;
+            lib1->ret(*this,isbn);
+            flag=0;
+            // cout<<"successfully return  the book!"<<endl;
+        }else{
+            cout<<"input error!"<<endl;
+            flag=1;
+        }
+    }while(flag);
+    system("pause");
     
 }
 
@@ -329,7 +338,7 @@ void Reader::apply25(){
     //look up borrowlog
     LibSys::library* lib1= LibSys::library::getLibrary();
     lib1->personalBorrowTrace(*this);
-    
+     system("pause");
 }
 /*==============================================================================
 |函 数 名|:apply31
@@ -346,7 +355,7 @@ void Visitor::apply31(){
     LibSys::library* lib1= LibSys::library::getLibrary();
     lib1->list(true);
     system("pause");
-    apply3();
+    
 
 }
 /*==============================================================================
@@ -406,7 +415,7 @@ void Visitor::apply32(){
     }
     system("pause");
     //back admin function menu
-    apply3();
+    
 }
 
 /*==============================================================================
@@ -469,7 +478,7 @@ void Admin::apply1()
                 break;
             default:
                 cout<<"输入错误!"<<endl;
-                return;
+                
                 
 
         }
@@ -504,6 +513,9 @@ void Reader::apply2()   //读者功能
         cin>>i;
         system("cls");
         switch(i){
+            case 0:
+                apply20();
+                break;
             case 1:
             
                 apply21();
