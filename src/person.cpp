@@ -1,7 +1,7 @@
 /*
  * @Author: DuShiyi
  * @Date: 2020-07-15 17:56:32
- * @LastEditTime: 2020-07-16 23:07:40
+ * @LastEditTime: 2020-07-16 23:15:44
  * @LastEditors: Please set LastEditors
  * @Description: about person(admin ,visitor,reader)
  * @FilePath: \LibManage\src\person.cpp
@@ -513,6 +513,9 @@ void Reader::apply2()   //¶ÁÕß¹¦ÄÜ
         cin>>i;
         system("cls");
         switch(i){
+            case 0:
+                apply20();
+                break;
             case 1:
             
                 apply21();
