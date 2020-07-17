@@ -19,7 +19,8 @@ private:
 	}
 public:
 	static Logs*getLogs();
-
+	string account;
+	string password;
 	/* ============================================================
 |函 数 名|：autosave1
 |功能描述|：将改变后的数据存储到管理员账号密码文件中
@@ -114,8 +115,6 @@ public:
 	int goin1()                //管理员
 	{
 		autoget1();
-		string account;
-		string password;
 	L3: system("cls");
 		cout << "账号：";
 		cin >> account;
@@ -189,7 +188,7 @@ public:
 	int change1()
 	{
 		autoget1();
-		string account, password, password2, password3;
+		string  password2, password3;
 	L12:
 		system("cls");
 		cout << "账号：";
@@ -340,8 +339,7 @@ public:
 	int goin2()                //读者
 	{
 		autoget2();
-		string account;
-		string password;
+
 	L8:	system("cls");
 		cout << "账号：";
 		cin >> account;
@@ -414,8 +412,7 @@ public:
 =========================================================== */
 	void registers2()
 	{
-		string account;
-		string password;
+
 		string password2;
 		autoget2();
 	L10: system("cls");
@@ -457,7 +454,7 @@ public:
 	int change2()
 	{
 		autoget2();
-		string account, password, password2, password3;
+		string password2, password3;
 	L16:
 		system("cls");
 		cout << "账号：";
