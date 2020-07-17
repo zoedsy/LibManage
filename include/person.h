@@ -43,7 +43,7 @@ class Reader{
             
         }
         string GetAccount()const noexcept{return account;}
-        void apply2();
+        void apply2(string Account);
         void apply20();
         void apply21();
         void apply22();
