@@ -1,5 +1,5 @@
 // #include"log.h"
-#include"..\include\person.h"
+#include"..\include\library.h"
 #include<iostream>
 #include<string>
 using namespace std;
@@ -82,7 +82,8 @@ void secondPage(int i){
 		case 4:
 		{
 			cout << "------ÍË³öÏµÍ³-------" << endl;
-			
+			LibSys::library *lib=LibSys::library::getLibrary();
+			delete lib;
 			exit(0);
 			break;
 		}
