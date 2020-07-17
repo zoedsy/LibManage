@@ -136,7 +136,7 @@ void thirdPage2(int i){
 			{
 				if (ls1->goin2() == 1)
 					// cout<<"kdshjglahsgsg"<<endl;
-					rea.Reader::apply2();
+					rea.Reader::apply2(ls1->account);
 					
 				break;
 			}
