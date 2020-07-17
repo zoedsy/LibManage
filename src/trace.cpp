@@ -45,7 +45,7 @@ std::string trace::erase(tip const&object)noexcept
 void trace::show_all()const
 {
     std::list<trace::tip>::iterator it = book_trace.begin();
-    std::cout << "序号\tISBN\t书名\t借出时间\n";
+    std::cout << "序号\tISBN\t用户名\t借出时间\n";
     int size = book_trace.size();
     if (size != 0)
     {
