@@ -1,3 +1,3 @@
 # LibManage
-# 图书馆管理系统
-## 可用管理员，读者，游客登陆
+# Lib management system
+## log in as admin, reader etc
